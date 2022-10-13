@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import SwipeUserCard from '../components/SwipeUserCard'
+import SwipeUserCard from '../SwipeUserCard'
 
 
 const CardProfile = () => {

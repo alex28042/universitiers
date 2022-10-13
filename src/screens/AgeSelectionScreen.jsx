@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import Layout from "../components/Layout";
 import AgeSelection from "../components/AgeSelection";
+import ButtonCustom from "../components/ButtonCustom";
 
 const AgeSelectionScreen = () => {
   return (

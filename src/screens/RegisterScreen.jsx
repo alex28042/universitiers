@@ -12,7 +12,9 @@ const RegisterScreen = () => {
       <TextInputCustom placeholder="First name" />
       <TextInputCustom placeholder="Email" />
       <TextInputCustom placeholder="Password" />
-      <ButtonCustom bgColor="white" text="Enter your University" />
+      <View className="bottom-0 absolute mb-4 w-full items-center">
+        <ButtonCustom to="UnivesitySelectScreen" bgColor="white" text="Enter your University" />
+      </View>
     </Layout>
   );
 };
