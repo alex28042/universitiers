@@ -1,16 +1,13 @@
 import { View, Text } from "react-native";
 import React, { useState } from "react";
 import { TailwindProvider } from "tailwindcss-react-native";
-import DatePicker from "react-native-date-picker";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 const AgeSelection = () => {
   const [date, setDate] = useState(new Date());
   return (
     <TailwindProvider>
-      <DatePicker 
-        date={date}
-        onDateChange={setDate}
-      />
+      <RNDateTimePicker value={new Date()} onChange={setDate}/>
     </TailwindProvider>
   );
 };

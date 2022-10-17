@@ -5,9 +5,9 @@ import { TailwindProvider } from "tailwindcss-react-native";
 const SwipeUserCard = () => {
   return (
     <TailwindProvider>
-      <View className="h-3/4 w-3/5 rounded-md bg-white items-center">
+      <View className="h-3/5 w-3/4 rounded-md bg-white items-center">
         <View className="top-0 absolute mt-2 h-2 w-40"></View>
-        <View className="flex flex-row">
+        <View className="bottom-0 absolute self-start flex flex-row">
           <View className="flex flex-col">
             <Text>Name, age</Text>
             <Text>Uni</Text>

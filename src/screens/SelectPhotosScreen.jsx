@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import Layout from "../components/Layout";
 import CardPhoto from "../components/CardPhoto";
+import ButtonCustom from "../components/ButtonCustom";
 
 const SelectPhotosScreen = () => {
   return (
@@ -12,9 +13,9 @@ const SelectPhotosScreen = () => {
       </View>
       <View
         style={{ width: "80%" }}
-        className="items-center bottom-0 absolute mb-10"
+        className="items-center bottom-0 absolute mb-4"
       >
-        <ButtonCustom bgColor="white" text="Enjoy!" />
+        <ButtonCustom to="SwipeScreen" bgColor="white" text="Enjoy!" />
       </View>
     </Layout>
   );
