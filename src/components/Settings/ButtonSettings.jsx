@@ -1,7 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const ButtonSettings = (props) => {
+  const navigation = useNavigation()
+  console.log(props.text)
   return (
     <TouchableOpacity
       style={{
@@ -11,9 +14,10 @@ const ButtonSettings = (props) => {
         borderBottomLeftRadius: props.radiusBottomLeft,
         borderBottomRightRadius: props.radiusBottomRight,
       }}
-      className="w-3/4 h-10"
+      className="w-3/4 justify-center h-10"
+      onPress={() => navigation.navigate("SettingsOptionsScreen", {name: props.text})}
     >
-        <Text>{props.text}</Text>
+      <Text className="ml-3">{props.text}</Text>
     </TouchableOpacity>
   );
 };

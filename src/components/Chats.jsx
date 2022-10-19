@@ -4,9 +4,11 @@ import ChatDetails from "./ChatDetails";
 
 const Chats = () => {
   return (
-    <View className="h-3/4 w-full rounded-full bg-white">
-      <Text>Your Conversations</Text>
-      <ChatDetails />
+    <View className="h-full w-full">
+      <View className="h-3/4 w-full bottom-0 absolute rounded-t-3xl -z-40 bg-white">
+        <Text>Your Conversations</Text>
+        <ChatDetails />
+      </View>
     </View>
   );
 };

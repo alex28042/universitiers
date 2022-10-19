@@ -16,7 +16,7 @@ const ButtonCustom = (props) => {
         className="items-center justify-center rounded-lg"
         onPress={() => props.to ? navigation.navigate(props.to) : null}
       >
-        <Text>{props.text}</Text>
+        <Text style={{fontFamily: 'Poppins_500Medium'}}>{props.text}</Text>
       </TouchableOpacity>
     </TailwindProvider>
   );

@@ -3,11 +3,13 @@ import React from 'react'
 import Layout from "../components/Layout";
 import SettingsScreens from '../components/SettingsScreens/SettingsScreens';
 
-const SettingsOptionsScreen = (props) => {
+const SettingsOptionsScreen = ({route}) => {
+  const {name} = route.params;
+  console.log(name)
   return (
     <Layout>
-      <Text>{props.name}</Text>
-      <SettingsScreens name={props.name}/>
+      <Text className="top-32 absolute">{name}</Text>
+      <SettingsScreens name={name}/>
     </Layout>
   )
 }

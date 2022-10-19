@@ -1,15 +1,40 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, TextInput } from "react-native";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import ButtonCustom from "../components/ButtonCustom";
+import SelectList from "react-native-dropdown-select-list/index";
 
 const UnivesitySelectScreen = () => {
+  const [universitiesList, setUniversitiesList] = useState([
+    { key: "1", value: "UPM" },
+  ]);
+  const [university, setUniversity] = useState("");
   return (
     <Layout>
-      <Text>Enter your University</Text>
-      <ButtonCustom bgColor="white" text="University" />
+      <View className="items-start w-full ml-32 mb-24">
+        <Text className="text-3xl" style={{ fontFamily: "Poppins_700Bold" }}>
+          Enter your
+        </Text>
+        <Text className="text-3xl" style={{ fontFamily: "Poppins_700Bold" }}>
+          University
+        </Text>
+      </View>
+      <SelectList
+        boxStyles={{
+          width: "60%",
+          height: 50,
+          marginHorizontal: 50,
+          justifyItems: "between",
+        }}
+        setSelected={setUniversity}
+        data={universitiesList}
+      />
       <View className="bottom-0 absolute w-full mb-4 items-center">
-        <ButtonCustom to="AgeSelectionScreen" bgColor="white" text="How old are you? :)" />
+        <ButtonCustom
+          to="AgeSelectionScreen"
+          bgColor="white"
+          text="How old are you? :)"
+        />
       </View>
     </Layout>
   );

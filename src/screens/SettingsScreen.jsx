@@ -6,7 +6,7 @@ import Settings from "../components/Settings/Settings";
 const SettingsScreen = () => {
   return (
     <Layout>
-      <Text>Settings</Text>
+      <Text className="top-32 absolute">Settings</Text>
       <Settings />
     </Layout>
   );

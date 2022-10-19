@@ -8,9 +8,10 @@ const LikesScreen = () => {
   return (
     <Layout>
         <Text>People who likes you!</Text>
-        <View className="grid grid-cols-2">
-            <LikesUserCard />
-            <LikesUserCard />
+        <View className="grid grid-rows-2 gap-4 w-full items-center mt-3">
+          <LikesUserCard />
+          <LikesUserCard />
+          <LikesUserCard />
         </View>
         <Tabbar />
     </Layout>

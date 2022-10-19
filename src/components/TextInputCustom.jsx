@@ -5,7 +5,7 @@ import { TailwindProvider } from 'tailwindcss-react-native'
 const TextInputCustom = (props) => {
   return (
     <TailwindProvider>
-      <TextInput placeholder={props.placeholder} style={{width: "90%", height: 40}}/>
+      <TextInput placeholder={props.placeholder} className="bg-white mb-3 rounded-full px-2" style={{width: "70%", height: 45, fontFamily: 'Poppins_500Medium'}}/>
     </TailwindProvider>
   )
 }

@@ -7,7 +7,7 @@ import NumberOfLikesMatches from "./NumberOfLikesMatches";
 const Matches = () => {
   return (
     <TailwindProvider>
-      <View className="w-full h-32 rounded-full">
+      <View className="w-full top-32 absolute h-32 rounded-full">
         <Text>Matches</Text>
         <View className="flex flex-row">
           <NumberOfLikesMatches />
