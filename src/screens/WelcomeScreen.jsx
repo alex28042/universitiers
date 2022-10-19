@@ -2,8 +2,19 @@ import { View, Text } from "react-native";
 import React from "react";
 import Layout from "../components/Layout";
 import ButtonCustom from "../components/ButtonCustom";
+import {
+  useFonts,
+  Poppins_500Medium,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins';
 
 const WelcomeScreen = () => {
+
+  useFonts({
+    Poppins_500Medium,
+    Poppins_700Bold,
+  });
+
   return (
     <Layout>
       <View className="items-start w-full ml-32">

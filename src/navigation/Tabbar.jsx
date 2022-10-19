@@ -10,10 +10,10 @@ const Tabbar = () => {
   return (
     <TailwindProvider>
       <View className="w-4/5 h-10 rounded-xl flex flex-row bg-white items-center justify-between bottom-0 absolute mb-4">
-        <Ionicons color="black" size={30} name="clipboard-outline" onPress={() => navigation.navigate("SwipeScreen")}/>
-        <Ionicons color="black" size={30} name="heart-outline" onPress={() => navigation.navigate("LikesScreen")}/>
-        <Ionicons color="black" size={30} name="chatbox-outline" onPress={() => navigation.navigate("ChatScreen")}/>
-        <Ionicons color="black" size={30} name="person-outline" onPress={() => navigation.navigate("ProfileScreen")}/>
+        <Ionicons style={{marginLeft: 19}} color="black" size={28} name="clipboard-outline" onPress={() => navigation.navigate("SwipeScreen")}/>
+        <Ionicons color="black" size={28} name="heart-outline" onPress={() => navigation.navigate("LikesScreen")}/>
+        <Ionicons color="black" size={28} name="chatbox-outline" onPress={() => navigation.navigate("ChatScreen")}/>
+        <Ionicons style={{marginRight: 19}} color="black" size={28} name="person-outline" onPress={() => navigation.navigate("ProfileScreen")}/>
       </View>
     </TailwindProvider>
   );

@@ -19,16 +19,18 @@ const UnivesitySelectScreen = () => {
           University
         </Text>
       </View>
-      <SelectList
-        boxStyles={{
-          width: "60%",
-          height: 50,
-          marginHorizontal: 50,
-          justifyItems: "between",
-        }}
-        setSelected={setUniversity}
-        data={universitiesList}
-      />
+      <View className="w-3/4 h-10">
+        <SelectList
+          placeholder="Select University"
+          searchPlaceholder="University"
+          dropdownStyles={{ backgroundColor: "white", borderWidth: 0}}
+          boxStyles={{ backgroundColor: "white", borderWidth: 0 }}
+          inputStyles={{fontFamily: "Poppins_500Medium"}}
+          dropdownItemStyles={{fontFamily: "Poppins_500Medium"}}
+          setSelected={setUniversity}
+          data={universitiesList}
+        />
+      </View>
       <View className="bottom-0 absolute w-full mb-4 items-center">
         <ButtonCustom
           to="AgeSelectionScreen"
