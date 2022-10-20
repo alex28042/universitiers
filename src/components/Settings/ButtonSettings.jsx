@@ -17,7 +17,7 @@ const ButtonSettings = (props) => {
       className="w-3/4 justify-center h-10"
       onPress={() => navigation.navigate("SettingsOptionsScreen", {name: props.text})}
     >
-      <Text className="ml-3">{props.text}</Text>
+      <Text style={{fontFamily: 'Poppins_700Bold'}} className="ml-3">{props.text}</Text>
     </TouchableOpacity>
   );
 };

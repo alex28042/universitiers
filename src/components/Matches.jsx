@@ -7,9 +7,9 @@ import NumberOfLikesMatches from "./NumberOfLikesMatches";
 const Matches = () => {
   return (
     <TailwindProvider>
-      <View className="w-full top-32 absolute h-32 rounded-full">
-        <Text>Matches</Text>
-        <View className="flex flex-row">
+      <View className="w-full top-20 bg-white absolute h-24 rounded-3xl">
+        <Text style={{fontFamily: 'Poppins_700Bold'}} className="text-lg ml-10 mt-2">Matches with you!</Text>
+        <View className="flex flex-row mt-2">
           <NumberOfLikesMatches />
           <ProfileMatches />
         </View>

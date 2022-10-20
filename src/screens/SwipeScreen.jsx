@@ -9,20 +9,24 @@ import Swiper from "react-native-deck-swiper";
 
 const SwipeScreen = () => {
   const UsersData = [
-    { name: "Sofia", Uni: "UPM", age: 19 },
-    { name: "Sofia", Uni: "UPM", age: 19 },
-    { name: "Sofia", Uni: "UPM", age: 19 },
-    { name: "Sofia", Uni: "UPM", age: 19 },
+    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
+    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
+    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
+    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
   ];
   const swipeRef = useRef();
   const navigation = useNavigation();
   return (
     <Layout>
-      <View className="w-full items-end absolute top-16 right-4">
+      <View className="w-full items-end absolute top-16 flex flex-row justify-center">
+        <Text className="text-xl" style={{ fontFamily: "Poppins_700Bold" }}>
+          Univesitiers
+        </Text>
         <Ionicons
           name="settings-outline"
           onPress={() => navigation.navigate("SettingsScreen")}
           size={30}
+          style={{ alignSelf: "flex-end", position: "absolute", right: 10 }}
         />
       </View>
       <View></View>
@@ -82,9 +86,7 @@ const SwipeScreen = () => {
           <Ionicons name="heart-outline" size={39} />
         </TouchableOpacity>
       </View>
-      <Tabbar 
-        focus="Swipe"
-      />
+      <Tabbar focus="Swipe" />
     </Layout>
   );
 };

@@ -4,8 +4,8 @@ import CardPhoto from '../CardPhoto'
 
 const ProfilePhotos = () => {
   return (
-    <View>
-      <Text  style={{fontFamily: 'Poppins_500Medium'}}>Your photos:</Text>
+    <View className="w-full ml-20">
+      <Text style={{fontFamily: 'Poppins_700Bold'}}>Your photos:</Text>
       <View className="flex flex-row">
         <CardPhoto />
         <CardPhoto />

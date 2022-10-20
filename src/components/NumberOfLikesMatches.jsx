@@ -4,8 +4,8 @@ import { TailwindProvider } from "tailwindcss-react-native";
 
 const NumberOfLikesMatches = () => {
   return (
-    <View className="h-8 w-8 rounded-full bg-white items-center justify-center">
-      <Text>+99</Text>
+    <View className="h-11 w-11 rounded-full bg-slate-400 ml-10 items-center justify-center">
+      <Text style={{fontFamily: 'Poppins_700Bold'}} >+99</Text>
     </View>
   );
 };
