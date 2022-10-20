@@ -5,7 +5,7 @@ import ButtonCustom from "../ButtonCustom";
 const ProfileAboutYou = () => {
   return (
     <View>
-      <Text>About you:</Text>
+      <Text  style={{fontFamily: 'Poppins_500Medium'}}>About you:</Text>
       <ButtonCustom bgColor="white" text="Join now!" />
     </View>
   );

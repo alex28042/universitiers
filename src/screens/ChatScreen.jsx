@@ -11,7 +11,7 @@ const ChatScreen = () => {
     <Layout>
       <Matches />
       <Chats />
-      <Tabbar />
+      <Tabbar focus="Chat"/>
     </Layout>
   )
 }

@@ -5,7 +5,7 @@ import CardPhoto from '../CardPhoto'
 const ProfilePhotos = () => {
   return (
     <View>
-      <Text>Your photos:</Text>
+      <Text  style={{fontFamily: 'Poppins_500Medium'}}>Your photos:</Text>
       <View className="flex flex-row">
         <CardPhoto />
         <CardPhoto />

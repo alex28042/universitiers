@@ -86,12 +86,12 @@ const Navigation = () => {
         <Stack.Screen
           name="SettingsScreen"
           component={SettingsScreen}
-          options={{ headerShown: false, headerBackVisible: false }}
+          options={{ headerShown: true}}
         />
         <Stack.Screen
           name="SettingsOptionsScreen"
           component={SettingsOptionsScreen}
-          options={{ headerShown: false, headerBackVisible: false }}
+          options={{ headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -82,7 +82,9 @@ const SwipeScreen = () => {
           <Ionicons name="heart-outline" size={39} />
         </TouchableOpacity>
       </View>
-      <Tabbar />
+      <Tabbar 
+        focus="Swipe"
+      />
     </Layout>
   );
 };

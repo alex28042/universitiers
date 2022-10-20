@@ -9,6 +9,7 @@ const UnivesitySelectScreen = () => {
     { key: "1", value: "UPM" },
   ]);
   const [university, setUniversity] = useState("");
+
   return (
     <Layout>
       <View className="items-start w-full ml-32 mb-24">

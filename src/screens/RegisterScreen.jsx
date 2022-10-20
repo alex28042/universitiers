@@ -11,7 +11,6 @@ const RegisterScreen = () => {
         <Text className="text-4xl" style={{fontFamily: 'Poppins_700Bold'}}>Welcome!</Text>
         <Text style={{fontFamily: 'Poppins_500Medium'}}>to Universitiers</Text>
       </View>
-
       <TextInputCustom placeholder="First name" />
       <TextInputCustom placeholder="Email" />
       <TextInputCustom placeholder="Password" />

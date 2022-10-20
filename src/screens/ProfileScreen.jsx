@@ -9,11 +9,11 @@ import Tabbar from "../navigation/Tabbar";
 const ProfileScreen = () => {
   return (
     <Layout>
-      <Text>Your Profile</Text>
+      <Text className="text-2xl mb-20" style={{fontFamily: 'Poppins_700Bold'}}>Your Profile</Text>
       <ProfileDetails />
       <ProfilePhotos />
       <ProfileAboutYou />
-      <Tabbar />
+      <Tabbar focus="Profile" />
     </Layout>
   );
 };
