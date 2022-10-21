@@ -3,8 +3,7 @@ import React from 'react'
 
 const LikesUserCard = () => {
   return (
-    <View className="h-20 w-14 rounded-full bg-white">
-    
+    <View className="h-32 w-20 rounded-lg ml-1 mr-1 bg-white">
     </View>
   )
 }

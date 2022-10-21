@@ -10,9 +10,9 @@ import Swiper from "react-native-deck-swiper";
 const SwipeScreen = () => {
   const UsersData = [
     { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
-    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
-    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
-    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
+    { name: "Fer", uni: "UPM", age: 19, bio: "Holaa" },
+    { name: "Delgado", uni: "UPM", age: 19, bio: "Holaa" },
+    { name: "Kike", uni: "UPM", age: 19, bio: "Holaa" },
   ];
   const swipeRef = useRef();
   const navigation = useNavigation();
@@ -62,7 +62,7 @@ const SwipeScreen = () => {
           cards={UsersData}
           renderCard={(UsersData) =>
             UsersData.length != 0 ? (
-              <SwipeUserCard />
+              <SwipeUserCard {...UsersData} />
             ) : (
               <View className="h-3/5 w-3/4 rounded-md bg-white items-center">
                 <Text>No more profiles</Text>

@@ -4,10 +4,20 @@ import Layout from "../components/Layout";
 import CardPhoto from "../components/CardPhoto";
 import ButtonCustom from "../components/ButtonCustom";
 import AddPhoto from "../components/SelectPhotos/AddPhoto";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 const SelectPhotosScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <Layout>
+      <Ionicons
+        name="chevron-back-outline"
+        size={30}
+        style={{ position: "absolute", top: 60, left: 10 }}
+        onPress={() => navigation.goBack()}
+      />
       <View className="w-full items-start ml-32">
         <Text className="text-3xl" style={{ fontFamily: "Poppins_700Bold" }}>
           Select

@@ -8,7 +8,7 @@ const LikesScreen = () => {
   return (
     <Layout>
         <Text className="mb-20 text-2xl" style={{fontFamily: 'Poppins_700Bold'}}>People who likes you!</Text>
-        <View className="grid grid-rows-2 gap-4 w-full items-center mt-3">
+        <View className="flex flex-row items-center mt-3">
           <LikesUserCard />
           <LikesUserCard />
           <LikesUserCard />

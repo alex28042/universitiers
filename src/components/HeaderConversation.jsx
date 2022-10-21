@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +15,7 @@ const HeaderConversation = () => {
         onPress={() => navigation.goBack()}
       />
       <View className="mt-12 ml-14 w-full flex flex-row">
-        <View className="h-14 w-14 bg-neutral-400 rounded-full"></View>
+        <TouchableOpacity className="h-14 w-14 bg-neutral-400 rounded-full" onPress={() => navigation.navigate("PreviewProfileScreen")}></TouchableOpacity>
         <View className="flex flex-col h-14 justify-between ml-3">
           <Text
             style={{ fontFamily: "Poppins_700Bold" }}
