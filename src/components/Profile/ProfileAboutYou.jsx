@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import ButtonCustom from "../ButtonCustom";
+import ProfileButton from "./ProfileButton";
 
 const ProfileAboutYou = () => {
   return (
@@ -9,7 +9,7 @@ const ProfileAboutYou = () => {
       <Text style={{ fontFamily: "Poppins_700Bold" }}>About you:</Text>
 
       </View>
-      <ButtonCustom bgColor="white" text="Bio" />
+      <ProfileButton bgColor="white" text="Bio" />
     </View>
   );
 };

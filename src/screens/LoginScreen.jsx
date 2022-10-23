@@ -1,18 +1,40 @@
-import { View, Text, TextInputComponent } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  TextInputComponent,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import TextInputCustom from "../components/TextInputCustom";
-import ButtonCustom from "../components/ButtonCustom";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { auth } from "../../firebase-config";
+import { User } from "../data/User";
+import storage from "../data/storage";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  
+  const [errorLogIn, setErrorLogIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleLogIn = (email, password) => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        navigation.navigate("LoadScreen");
+        User.email = email;
+        storage.set("email", email);
+        storage.set("password", password);
+      })
+      .catch(() => {
+        setErrorLogIn(true);
+      });
+  };
   return (
     <Layout>
-       <Ionicons
+      <Ionicons
         name="chevron-back-outline"
         size={30}
         style={{ position: "absolute", top: 60, left: 10 }}
@@ -26,15 +48,43 @@ const LoginScreen = () => {
           Welcome back you've been missed
         </Text>
       </View>
-      <TextInputCustom placeholder="Email" />
-      <TextInputCustom placeholder="Password" />
+      <TextInput
+        onChangeText={(text) => setEmail(text)}
+        placeholder="Email"
+        className="bg-white mb-3 rounded-full px-2"
+        style={{ width: "70%", height: 45, fontFamily: "Poppins_500Medium" }}
+      />
+      <TextInput
+        onChangeText={(text) => setPassword(text)}
+        secureTextEntry={true}
+        placeholder="Password"
+        className="bg-white mb-3 rounded-full px-2"
+        style={{ width: "70%", height: 45, fontFamily: "Poppins_500Medium" }}
+      />
       <TouchableOpacity>
         <Text className="underline" style={{ fontFamily: "Poppins_500Medium" }}>
           Recover password
         </Text>
       </TouchableOpacity>
+      {errorLogIn ? (
+        <Text style={{ fontFamily: "Poppins_500Medium" }}>Error in password or email</Text>
+      ) : (
+        <></>
+      )}
       <View className="absolute bottom-4 w-full items-center">
-        <ButtonCustom bgColor="white" text="Log In" />
+        <TouchableOpacity
+          style={{
+            width: "90%",
+            height: 40,
+            backgroundColor: "white",
+          }}
+          className="items-center justify-center rounded-lg"
+          onPress={() => {
+            handleLogIn(email, password);
+          }}
+        >
+          <Text style={{ fontFamily: "Poppins_500Medium" }}>Login</Text>
+        </TouchableOpacity>
       </View>
     </Layout>
   );

@@ -54,6 +54,7 @@ const SwipeScreen = () => {
                 label: {
                   textAlign: "left",
                   color: "green",
+                  fontFamily: "Poppins_500Medium",
                 },
               },
             },
@@ -71,7 +72,6 @@ const SwipeScreen = () => {
           }
         />
       </View>
-
       <View className="flex flex-row mt-10">
         <TouchableOpacity
           onPress={() => swipeRef.current.swipeLeft()}

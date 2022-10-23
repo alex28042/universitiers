@@ -10,7 +10,7 @@ const Tabbar = (props) => {
   switch (props.focus) {
     case "Likes":
       return (
-        <View className="w-4/5 h-10 rounded-xl flex flex-row bg-white items-center justify-between bottom-0 absolute mb-4">
+        <View className="w-4/5 h-10 rounded-xl flex flex-row bg-white items-center justify-between bottom-0 absolute mb-6">
           <Ionicons
             style={{ marginLeft: 19 }}
             color="black"
@@ -41,7 +41,7 @@ const Tabbar = (props) => {
       );
     case "Swipe":
       return (
-        <View className="w-4/5 h-10 rounded-xl flex flex-row bg-white items-center justify-between bottom-0 absolute mb-4">
+        <View className="w-4/5 h-10 rounded-xl flex flex-row bg-white items-center justify-between bottom-0 absolute mb-6">
           <Ionicons
             style={{ marginLeft: 19 }}
             color="black"
@@ -72,7 +72,7 @@ const Tabbar = (props) => {
       );
     case "Chat":
       return (
-        <View style={{backgroundColor: "#9FA0FF"}} className="w-4/5 h-10 rounded-xl flex flex-row items-center justify-between bottom-0 absolute mb-4">
+        <View style={{backgroundColor: "#9FA0FF"}} className="w-4/5 h-10 rounded-xl flex flex-row items-center justify-between bottom-0 absolute mb-6">
           <Ionicons
             style={{ marginLeft: 19 }}
             color="black"
@@ -103,7 +103,7 @@ const Tabbar = (props) => {
       );
     case "Profile":
       return (
-        <View className="w-4/5 h-10 rounded-xl flex flex-row bg-white items-center justify-between bottom-0 absolute mb-4">
+        <View className="w-4/5 h-10 rounded-xl flex flex-row bg-white items-center justify-between bottom-0 absolute mb-6">
           <Ionicons
             style={{ marginLeft: 19 }}
             color="black"

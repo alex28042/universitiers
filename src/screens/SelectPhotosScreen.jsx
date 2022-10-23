@@ -44,7 +44,7 @@ const SelectPhotosScreen = () => {
         className="items-center bottom-0 absolute mb-4"
       >
         <AddPhoto />
-        <ButtonCustom to="SwipeScreen" bgColor="white" text="Enjoy!" />
+        <ButtonCustom to="LoadScreen" bgColor="white" text="Enjoy!" />
       </View>
     </Layout>
   );

@@ -6,8 +6,8 @@ import { TextInput } from "react-native-gesture-handler";
 const AgeSelection = () => {
   return (
     <TailwindProvider>
-      <View className="flex flex-row w-full ml-32 mt-14">
-        <TextInput placeholder="DD" style={{fontSize: 20, fontFamily: "Poppins_500Medium"}} maxLength={2}/>
+      <View className="flex flex-row w-full ml-32 mt-10" style={{paddingBottom: 50}}>
+        <TextInput keyboardType="numeric" placeholder="DD" style={{fontSize: 20, fontFamily: "Poppins_500Medium"}} maxLength={2}/>
         <Text className="text-xl" style={{ fontFamily: "Poppins_500Medium" }}>
           /
         </Text>

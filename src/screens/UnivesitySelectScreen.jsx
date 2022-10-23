@@ -12,6 +12,11 @@ const UnivesitySelectScreen = () => {
   ]);
   const [university, setUniversity] = useState("");
   const navigation = useNavigation();
+
+  const handleSelectUni = () => {
+    
+  }
+
   return (
     <Layout>
       <Ionicons

@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "../screens/WelcomeScreen";
@@ -16,6 +16,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import SettingsOptionsScreen from "../screens/SettingsOptionsScreen";
 import LoginScreen from "../screens/LoginScreen";
 import LikesScreen from "../screens/LikesScreen";
+import LoadScreen from "../screens/LoadScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,7 +34,7 @@ const Navigation = () => {
           component={RegisterScreen}
           options={{ headerShown: false, headerBackVisible: false }}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false, headerBackVisible: false }}
@@ -86,12 +87,17 @@ const Navigation = () => {
         <Stack.Screen
           name="SettingsScreen"
           component={SettingsScreen}
-          options={{ headerShown: false}}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SettingsOptionsScreen"
           component={SettingsOptionsScreen}
-          options={{ headerShown: false}}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LoadScreen"
+          component={LoadScreen}
+          options={{ headerShown: false, headerBackVisible: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
