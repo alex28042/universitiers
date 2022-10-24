@@ -23,7 +23,6 @@ const SelectPhotosScreen = () => {
           Select
         </Text>
         <Text className="text-3xl" style={{ fontFamily: "Poppins_700Bold" }}>
-          {" "}
           your photos
         </Text>
       </View>

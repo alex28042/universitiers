@@ -10,9 +10,12 @@ import {
 import storage from "../data/storage";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../firebase-config";
-import { User } from "../data/User";
+import { currentUser } from "../data/User";
+import { UserController } from "../api/user";
+import { usersSwipeList } from "../data/UsersSwipeList";
 
 const WelcomeScreen = () => {
+  const userController = new UserController();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   let [fontLoaded] = useFonts({
@@ -29,9 +32,11 @@ const WelcomeScreen = () => {
         await auth
           .signInWithEmailAndPassword(userEmail, userPassword)
           .then(() => {
-            console.log("hola", userEmail, userPassword);
-            User.email = userEmail;
-            navigation.navigate("SwipeScreen");
+            userController.getCurrentUser(userEmail);
+            console.log(currentUser);
+            userController.getUsers();
+            console.log(usersSwipeList);
+            navigation.navigate("LoadScreen");
             setTimeout(() => {
               setLoading(false);
             }, 300);

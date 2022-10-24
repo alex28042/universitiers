@@ -11,7 +11,7 @@ import TextInputCustom from "../components/TextInputCustom";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../firebase-config";
-import { User } from "../data/User";
+import { currentUser, User } from "../data/User";
 import storage from "../data/storage";
 
 const LoginScreen = () => {
@@ -24,7 +24,7 @@ const LoginScreen = () => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         navigation.navigate("LoadScreen");
-        User.email = email;
+        currentUser.email = email;
         storage.set("email", email);
         storage.set("password", password);
       })

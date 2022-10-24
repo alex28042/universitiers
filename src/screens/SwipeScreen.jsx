@@ -1,11 +1,13 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Layout from "../components/Layout";
 import SwipeUserCard from "../components/SwipeUserCard";
 import Tabbar from "../navigation/Tabbar";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-deck-swiper";
+import { UserController } from "../api/user";
+import { usersSwipeList } from "../data/UsersSwipeList";
 
 const SwipeScreen = () => {
   const UsersData = [
@@ -16,6 +18,7 @@ const SwipeScreen = () => {
   ];
   const swipeRef = useRef();
   const navigation = useNavigation();
+  
   return (
     <Layout>
       <View className="w-full items-end absolute top-16 flex flex-row justify-center">
@@ -62,7 +65,7 @@ const SwipeScreen = () => {
           containerStyle={{ backgroundColor: "transparent" }}
           cards={UsersData}
           renderCard={(UsersData) =>
-            UsersData.length != 0 ? (
+            UsersData ? (
               <SwipeUserCard {...UsersData} />
             ) : (
               <View className="h-3/5 w-3/4 rounded-md bg-white items-center">

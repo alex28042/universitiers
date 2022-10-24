@@ -4,8 +4,9 @@ import Layout from "../components/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { auth, db } from "../../firebase-config";
-import { User } from "../data/User";
+import { currentUser, User } from "../data/User";
 import storage from "../data/storage";
+import { UserController } from "../api/user";
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
@@ -15,6 +16,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const regexEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+  const userController = new UserController();
 
   const createUser = (email, password, name) => {
     if (
@@ -28,19 +30,7 @@ const RegisterScreen = () => {
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
           navigation.navigate("UnivesitySelectScreen");
-          console.log("hecho");
-          storage.set("email", email);
-          storage.set("password", password);
-          User.email = email;
-          User.name = name;
-          db().collection("users/").add({
-            email: User.email,
-            bio: User.bio,
-            likes: User.likes,
-            matches: User.matches,
-            photos: User.photos,
-            uni: User.uni,
-          });
+          userController.createUser(currentUser, email, password, firstName);
         })
         .catch(() => setErrorRegister(true));
     }

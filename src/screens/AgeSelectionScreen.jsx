@@ -28,8 +28,7 @@ const AgeSelectionScreen = () => {
           you must be 18+ years old
         </Text>
       </View>
-      <AgeSelection />
-      <View
+       <View
         style={{ width: "80%" }}
         className="items-center bottom-0 absolute mb-10"
       >
