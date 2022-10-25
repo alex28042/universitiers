@@ -1,10 +1,13 @@
 export const currentUser = {
   email: "",
-  age: 0,
+  bornDate: new Date(),
+  password: "",
   name: "",
   uni: "",
   photos: [],
   likes: [],
   matches: [],
   bio: "",
+  gender: "",
+  genderSearch: "",
 };

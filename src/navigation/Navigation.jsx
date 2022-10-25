@@ -17,6 +17,7 @@ import SettingsOptionsScreen from "../screens/SettingsOptionsScreen";
 import LoginScreen from "../screens/LoginScreen";
 import LikesScreen from "../screens/LikesScreen";
 import LoadScreen from "../screens/LoadScreen";
+import SelectGenderScreen from "../screens/SelectGenderScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -97,6 +98,11 @@ const Navigation = () => {
         <Stack.Screen
           name="LoadScreen"
           component={LoadScreen}
+          options={{ headerShown: false, headerBackVisible: false }}
+        />
+        <Stack.Screen
+          name="SelectGenderScreen"
+          component={SelectGenderScreen}
           options={{ headerShown: false, headerBackVisible: false }}
         />
       </Stack.Navigator>

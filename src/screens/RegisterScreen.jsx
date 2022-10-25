@@ -16,9 +16,8 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const regexEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
-  const userController = new UserController();
 
-  const createUser = (email, password, name) => {
+  /*const createUser = (email, password, name) => {
     if (
       name != "" &&
       email != "" &&
@@ -36,7 +35,26 @@ const RegisterScreen = () => {
     }
 
     password?.length < 6 ? setPasswordError(true) : setPasswordError(false);
-  };
+  };*/
+
+  const handleRegister = () => {
+    if (
+      firstName != "" &&
+      email != "" &&
+      password != "" &&
+      password.length > 6 &&
+      regexEmail.test(email)
+    ) {
+      currentUser.name = firstName;
+      currentUser.email = email
+      currentUser.password = password
+      navigation.navigate("UnivesitySelectScreen")
+    } else setErrorRegister(true)
+
+    password?.length < 6 ? setPasswordError(true) : setPasswordError(false);
+  }
+
+  console.log(currentUser);
 
   return (
     <Layout>
@@ -91,7 +109,7 @@ const RegisterScreen = () => {
             backgroundColor: "white",
           }}
           className="items-center justify-center rounded-lg"
-          onPress={() => createUser(email, password, firstName)}
+          onPress={() => handleRegister()}
         >
           <Text style={{ fontFamily: "Poppins_500Medium" }}>
             Enter your University

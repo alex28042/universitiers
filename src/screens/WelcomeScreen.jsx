@@ -36,7 +36,7 @@ const WelcomeScreen = () => {
             console.log(currentUser);
             userController.getUsers();
             console.log(usersSwipeList);
-            navigation.navigate("LoadScreen");
+            navigation.navigate("SwipeScreen");
             setTimeout(() => {
               setLoading(false);
             }, 300);

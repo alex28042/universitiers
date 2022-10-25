@@ -1,13 +1,26 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
-import AgeSelection from "../components/AgeSelection";
 import ButtonCustom from "../components/ButtonCustom";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { currentUser } from "../data/User";
 
 const AgeSelectionScreen = () => {
   const navigation = useNavigation();
+  const [day, setday] = useState(0);
+  const [month, setMonth] = useState(0);
+  const [year, setYear] = useState(0);
+  const [errorBirthday, setErrorBirthday] = useState(false);
+
+  const handleBirthday = () => {
+    if (day != 0 && month != 0 && year != 0) {
+      currentUser.bornDate = new Date(year, month, day);
+      navigation.navigate("SelectGenderScreen");
+    } else setErrorBirthday(true);
+  };
+
+  console.log(currentUser);
 
   return (
     <Layout>
@@ -28,15 +41,54 @@ const AgeSelectionScreen = () => {
           you must be 18+ years old
         </Text>
       </View>
-       <View
+      <View
+        className="flex flex-row w-full ml-32 mt-10"
+        style={{ paddingBottom: 50 }}
+      >
+        <TextInput
+          onChangeText={(text) => setday(text)}
+          keyboardType="numeric"
+          placeholder="DD"
+          style={{ fontSize: 20, fontFamily: "Poppins_500Medium" }}
+          maxLength={2}
+        />
+        <Text className="text-xl" style={{ fontFamily: "Poppins_500Medium" }}>
+          /
+        </Text>
+        <TextInput
+          onChangeText={(text) => setMonth(text)}
+          placeholder="MM"
+          maxLength={2}
+          style={{ fontSize: 20, fontFamily: "Poppins_500Medium" }}
+        />
+        <Text className="text-xl" style={{ fontFamily: "Poppins_500Medium" }}>
+          /
+        </Text>
+        <TextInput
+          onChangeText={(text) => setYear(text)}
+          placeholder="YYYY"
+          maxLength={4}
+          style={{ fontSize: 20, fontFamily: "Poppins_500Medium" }}
+        />
+      </View>
+      {errorBirthday ? <Text>Error Date</Text> : <></>}
+      <View
         style={{ width: "80%" }}
         className="items-center bottom-0 absolute mb-10"
       >
-        <ButtonCustom
-          to="SelectPhotosScreen"
-          bgColor="white"
-          text="Select your photos"
-        />
+        <TouchableOpacity
+          style={{
+            width: "90%",
+            height: 40,
+            backgroundColor: "white",
+          }}
+          className="items-center justify-center rounded-lg"
+          onPress={() => handleBirthday()}
+        >
+          <Text style={{ fontFamily: "Poppins_500Medium" }}>
+            Select your gender
+          </Text>
+        </TouchableOpacity>
       </View>
     </Layout>
   );

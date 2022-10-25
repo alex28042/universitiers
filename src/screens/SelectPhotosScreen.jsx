@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import Layout from "../components/Layout";
 import CardPhoto from "../components/CardPhoto";
@@ -6,9 +6,28 @@ import ButtonCustom from "../components/ButtonCustom";
 import AddPhoto from "../components/SelectPhotos/AddPhoto";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { currentUser } from "../data/User";
+import { UserController } from "../api/user";
+import { auth } from "../../firebase-config";
 
 const SelectPhotosScreen = () => {
+  const userController = new UserController();
   const navigation = useNavigation();
+
+
+  const createUser = () => {
+    if (currentUser.email != "" && currentUser.password != "") {
+      auth
+        .createUserWithEmailAndPassword(currentUser.email, currentUser.password)
+        .then(() => {
+          navigation.navigate("LoadScreen");
+          userController.createUser(currentUser);
+        })
+        .catch(() => setErrorRegister(true));
+    }
+  };
+
+  console.log(currentUser);
 
   return (
     <Layout>
@@ -43,7 +62,19 @@ const SelectPhotosScreen = () => {
         className="items-center bottom-0 absolute mb-4"
       >
         <AddPhoto />
-        <ButtonCustom to="LoadScreen" bgColor="white" text="Enjoy!" />
+      </View>
+      <View className="bottom-0 absolute w-full mb-4 items-center">
+        <TouchableOpacity
+          style={{
+            width: "90%",
+            height: 40,
+            backgroundColor: "white",
+          }}
+          className="items-center justify-center rounded-lg"
+          onPress={() => createUser()}
+        >
+          <Text style={{ fontFamily: "Poppins_500Medium" }}>{"Enjoy :)"}</Text>
+        </TouchableOpacity>
       </View>
     </Layout>
   );

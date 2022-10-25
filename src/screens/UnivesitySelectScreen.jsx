@@ -1,10 +1,11 @@
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import ButtonCustom from "../components/ButtonCustom";
 import SelectList from "react-native-dropdown-select-list/index";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import { currentUser } from "../data/User";
 
 const UnivesitySelectScreen = () => {
   const [universitiesList, setUniversitiesList] = useState([
@@ -12,10 +13,16 @@ const UnivesitySelectScreen = () => {
   ]);
   const [university, setUniversity] = useState("");
   const navigation = useNavigation();
+  const text = "How old are you? :)";
+  const [errorUniversity, setErrorUniversity] = useState(false);
 
   const handleSelectUni = () => {
-    
-  }
+    if (university != "") {
+      currentUser.uni = university;
+      navigation.navigate("AgeSelectionScreen");
+    } else setErrorUniversity(true);
+  };
+  console.log(currentUser);
 
   return (
     <Layout>
@@ -45,12 +52,19 @@ const UnivesitySelectScreen = () => {
           data={universitiesList}
         />
       </View>
+      {errorUniversity ? <Text>Error university</Text> : <></>}
       <View className="bottom-0 absolute w-full mb-4 items-center">
-        <ButtonCustom
-          to="AgeSelectionScreen"
-          bgColor="white"
-          text="How old are you? :)"
-        />
+        <TouchableOpacity
+          style={{
+            width: "90%",
+            height: 40,
+            backgroundColor: "white",
+          }}
+          className="items-center justify-center rounded-lg"
+          onPress={() => handleSelectUni()}
+        >
+          <Text style={{ fontFamily: "Poppins_500Medium" }}>{text}</Text>
+        </TouchableOpacity>
       </View>
     </Layout>
   );

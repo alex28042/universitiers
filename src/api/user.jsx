@@ -5,11 +5,9 @@ import { currentUser } from "../data/User";
 import { usersSwipeList } from "../data/UsersSwipeList";
 
 export class UserController {
-  async createUser(user, email, password, name) {
-    storage.set("email", email);
-    storage.set("password", password);
-    user.email = email;
-    user.name = name;
+  async createUser(user) {
+    storage.set("email", currentUser.email);
+    storage.set("password", currentUser.password);
     await db()
       .collection("users/")
       .add({
@@ -19,6 +17,9 @@ export class UserController {
         matches: user.matches,
         photos: user.photos,
         uni: user.uni,
+        gender: user.gender,
+        genderSearch: user.genderSearch,
+        bornDate: user.bornDate,
       })
       .then(() => console.log("user created"));
   }
@@ -36,6 +37,9 @@ export class UserController {
           currentUser.matches = data.matches;
           currentUser.photos = data.photos;
           currentUser.uni = data.uni;
+          currentUser.gender = data.gender
+          currentUser.genderSearch = data.genderSearch
+          currentUser.bornDate = data.bornDate
         });
       });
   }
