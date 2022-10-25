@@ -13,18 +13,20 @@ import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../firebase-config";
 import { currentUser, User } from "../data/User";
 import storage from "../data/storage";
+import { UserController } from "../api/user";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [errorLogIn, setErrorLogIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const userController = new UserController()
   const handleLogIn = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         navigation.navigate("LoadScreen");
-        currentUser.email = email;
+        userController.getCurrentUser(email)
         storage.set("email", email);
         storage.set("password", password);
       })

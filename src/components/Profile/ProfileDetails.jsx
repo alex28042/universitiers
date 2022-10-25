@@ -10,7 +10,7 @@ const ProfileDetails = () => {
       <View className="flex flex-row ml-16">
         <View className="h-20 w-20 rounded-full bg-white"></View>
         <View className="flex flex-col">
-          <Text className="ml-4 mt-2" style={{fontFamily: 'Poppins_700Bold'}}>{currentUser.email}</Text>
+          <Text className="ml-4 mt-2" style={{fontFamily: 'Poppins_700Bold'}}>{currentUser.name}</Text>
           <Text className="ml-4" style={{fontFamily: 'Poppins_500Medium'}}>joined 1 day ago</Text>
           <View className="flex flex-row mt-3">
             <TouchableOpacity onPress={() => navigation.navigate("PreviewProfileScreen")} className="h-10 w-16 ml-3 mr-5 rounded-lg bg-white items-center justify-center">

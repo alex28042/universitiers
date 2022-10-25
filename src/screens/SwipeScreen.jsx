@@ -8,17 +8,36 @@ import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-deck-swiper";
 import { UserController } from "../api/user";
 import { usersSwipeList } from "../data/UsersSwipeList";
+import { currentUser } from "../data/User";
 
 const SwipeScreen = () => {
   const UsersData = [
-    { name: "Sofia", uni: "UPM", age: 19, bio: "Holaa" },
-    { name: "Fer", uni: "UPM", age: 19, bio: "Holaa" },
-    { name: "Delgado", uni: "UPM", age: 19, bio: "Holaa" },
-    { name: "Kike", uni: "UPM", age: 19, bio: "Holaa" },
+    {
+      id: "hola@gmail.com",
+      name: "Sofia",
+      uni: "UPM",
+      age: 19,
+      bio: "Holaa",
+    },
+    { id: "hola@gmail.com", name: "Fer", uni: "UPM", age: 19, bio: "Holaa" },
+    {
+      id: "hola@gmail.com",
+      name: "Delgado",
+      uni: "UPM",
+      age: 19,
+      bio: "Holaa",
+    },
+    {
+      id: "hola@gmail.com",
+      name: "Kike",
+      uni: "UPM",
+      age: 19,
+      bio: "Holaa",
+    },
   ];
   const swipeRef = useRef();
   const navigation = useNavigation();
-  
+
   return (
     <Layout>
       <View className="w-full items-end absolute top-16 flex flex-row justify-center">
@@ -64,6 +83,16 @@ const SwipeScreen = () => {
           }}
           containerStyle={{ backgroundColor: "transparent" }}
           cards={UsersData}
+          onSwipedRight={(i) => {
+            if (!UsersData[i]) return;
+
+            currentUser.swipeRight.push(UsersData[i].id);
+          }}
+          onSwipedLeft={() => {
+            if (!UsersData[i]) return;
+
+            currentUser.swipeLeft.push(UsersData[i].id);
+          }}
           renderCard={(UsersData) =>
             UsersData ? (
               <SwipeUserCard {...UsersData} />

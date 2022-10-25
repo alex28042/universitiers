@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import CardPhoto from "../components/CardPhoto";
 import ButtonCustom from "../components/ButtonCustom";
@@ -13,7 +13,7 @@ import { auth } from "../../firebase-config";
 const SelectPhotosScreen = () => {
   const userController = new UserController();
   const navigation = useNavigation();
-
+  const [errorRegister, setErrorRegister] = useState(false)
 
   const createUser = () => {
     if (currentUser.email != "" && currentUser.password != "") {

@@ -8,14 +8,14 @@ import { useNavigation } from "@react-navigation/native";
 
 const SelectGenderScreen = () => {
   const [genderList, setGenderList] = useState([
-    { key: "1", value: "Man" },
-    { key: "2", value: "Woman" },
-    { key: "3", value: "Other" },
+    { value: "Man" },
+    { value: "Woman" },
+    { value: "Other" },
   ]);
   const [genderListSearch, setGenderListSearch] = useState([
-    { key: "1", value: "Man" },
-    { key: "2", value: "Woman" },
-    { key: "3", value: "Both" },
+    { value: "Man" },
+    { value: "Woman" },
+    { value: "Both" },
   ]);
   const [genderCurrentUser, setGenderCurrentUser] = useState("");
   const [genderSearchUser, setGenderSearchUser] = useState("");
@@ -57,7 +57,7 @@ const SelectGenderScreen = () => {
       </View>
       <View className="w-full ml-20 mb-6">
         <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-2xl">
-            Whata are you searching?
+          Whata are you searching?
         </Text>
       </View>
 

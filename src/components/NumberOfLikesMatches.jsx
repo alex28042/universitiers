@@ -1,12 +1,15 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { TailwindProvider } from "tailwindcss-react-native";
+import { currentUser } from "../data/User";
+import { useNavigation } from "@react-navigation/native";
 
 const NumberOfLikesMatches = () => {
+  const navigation = useNavigation()
   return (
-    <View className="h-11 w-11 rounded-full bg-slate-400 ml-10 items-center justify-center">
-      <Text style={{fontFamily: 'Poppins_700Bold'}} >+99</Text>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate("LikesScreen")} className="h-11 w-11 rounded-full bg-slate-400 ml-10 items-center justify-center">
+      <Text style={{fontFamily: 'Poppins_700Bold'}} >+{currentUser.likes.length}</Text>
+    </TouchableOpacity>
   );
 };
 

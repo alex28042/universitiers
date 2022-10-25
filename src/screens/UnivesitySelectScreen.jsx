@@ -9,7 +9,7 @@ import { currentUser } from "../data/User";
 
 const UnivesitySelectScreen = () => {
   const [universitiesList, setUniversitiesList] = useState([
-    { key: "1", value: "UPM" },
+    {value: "UPM" },
   ]);
   const [university, setUniversity] = useState("");
   const navigation = useNavigation();

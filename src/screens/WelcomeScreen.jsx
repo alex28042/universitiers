@@ -13,6 +13,7 @@ import { auth } from "../../firebase-config";
 import { currentUser } from "../data/User";
 import { UserController } from "../api/user";
 import { usersSwipeList } from "../data/UsersSwipeList";
+import { Motion } from "@legendapp/motion";
 
 const WelcomeScreen = () => {
   const userController = new UserController();

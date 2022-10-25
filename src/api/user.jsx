@@ -12,34 +12,41 @@ export class UserController {
       .collection("users/")
       .add({
         email: user.email,
+        name: user.name,
         bio: user.bio,
-        likes: user.likes,
+        swipeRight: user.swipeRight,
         matches: user.matches,
         photos: user.photos,
         uni: user.uni,
         gender: user.gender,
         genderSearch: user.genderSearch,
         bornDate: user.bornDate,
+        swipeLeft: user.swipeLeft,
+        likes: user.swipeRight,
       })
       .then(() => console.log("user created"));
   }
   async getCurrentUser(emailId) {
     await db()
-      .collection("users/")
+      .collection("users")
       .where("email", "==", emailId)
       .get()
       .then((q) => {
         q.forEach((d) => {
           const data = d.data();
+          currentUser.id = d.id;
           currentUser.email = data.email;
+          currentUser.name = data.name;
           currentUser.bio = data.bio;
           currentUser.likes = data.likes;
           currentUser.matches = data.matches;
           currentUser.photos = data.photos;
           currentUser.uni = data.uni;
-          currentUser.gender = data.gender
-          currentUser.genderSearch = data.genderSearch
-          currentUser.bornDate = data.bornDate
+          currentUser.gender = data.gender;
+          currentUser.genderSearch = data.genderSearch;
+          currentUser.bornDate = data.bornDate;
+          currentUser.swipeLeft = data.swipeLeft;
+          currentUser.swipeRight = data.swipeRight
         });
       });
   }
@@ -51,7 +58,7 @@ export class UserController {
       .then((q) =>
         q.forEach((d) => {
           const data = d.data();
-          usersSwipeList.push(data);
+          usersSwipeList.push({id: d.id, ...data});
         })
       );
   }

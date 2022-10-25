@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { TailwindProvider } from "tailwindcss-react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const ProfileMatches = () => {
+const ProfileMatches = (props) => {
+  const userId = props.userId;
+  const navigation = useNavigation()
+
   return (
-    <TailwindProvider>
-      <View className="h-11 w-11 rounded-full bg-slate-400 ml-1"></View>
-    </TailwindProvider>
+    <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")} className="h-11 w-11 rounded-full bg-slate-400 ml-1"></TouchableOpacity>
   );
 };
 
