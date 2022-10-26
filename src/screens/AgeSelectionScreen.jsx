@@ -14,8 +14,13 @@ const AgeSelectionScreen = () => {
   const [errorBirthday, setErrorBirthday] = useState(false);
 
   const handleBirthday = () => {
-    if (day != 0 && month != 0 && year != 0) {
-      currentUser.bornDate = new Date(year, month, day);
+    function calculateAge(birthday) {
+      let ageDifMs = Date.now() - birthday.getTime();
+      let ageDate = new Date(ageDifMs);
+      return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+    if (day != 0 && month != 0 && year != 0 && calculateAge(new Date(year, month, day)) >= 18) {
+      currentUser.bornDate = [day, month, year];
       navigation.navigate("SelectGenderScreen");
     } else setErrorBirthday(true);
   };

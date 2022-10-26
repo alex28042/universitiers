@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React, { useEffect, useRef } from "react";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Layout from "../components/Layout";
 import SwipeUserCard from "../components/SwipeUserCard";
 import Tabbar from "../navigation/Tabbar";
@@ -9,34 +9,17 @@ import Swiper from "react-native-deck-swiper";
 import { UserController } from "../api/user";
 import { usersSwipeList } from "../data/UsersSwipeList";
 import { currentUser } from "../data/User";
+import { db } from "../../firebase-config";
+import { LikesController } from "../api/likes";
+import { MatchController } from "../api/matches";
+import { SwipeController } from "../api/swipe";
 
 const SwipeScreen = () => {
-  const UsersData = [
-    {
-      id: "hola@gmail.com",
-      name: "Sofia",
-      uni: "UPM",
-      age: 19,
-      bio: "Holaa",
-    },
-    { id: "hola@gmail.com", name: "Fer", uni: "UPM", age: 19, bio: "Holaa" },
-    {
-      id: "hola@gmail.com",
-      name: "Delgado",
-      uni: "UPM",
-      age: 19,
-      bio: "Holaa",
-    },
-    {
-      id: "hola@gmail.com",
-      name: "Kike",
-      uni: "UPM",
-      age: 19,
-      bio: "Holaa",
-    },
-  ];
   const swipeRef = useRef();
   const navigation = useNavigation();
+  const likesController = new LikesController();
+  const matchController = new MatchController();
+  const swipeController = new SwipeController();
 
   return (
     <Layout>
@@ -48,61 +31,92 @@ const SwipeScreen = () => {
           name="settings-outline"
           onPress={() => navigation.navigate("SettingsScreen")}
           size={30}
-          style={{ alignSelf: "flex-end", position: "absolute", right: 10 }}
+          style={{ position: "absolute", right: 10 }}
         />
       </View>
       <View></View>
       <View className="h-3/5 w-3/4">
-        <Swiper
-          ref={swipeRef}
-          stackSize={5}
-          cardIndex={0}
-          animateCardOpacity
-          verticalSwipe={false}
-          overlayLabels={{
-            left: {
-              title: "NOPE",
-              style: {
-                label: {
-                  textAlign: "center",
-                  color: "red",
-                  fontFamily: "Poppins_500Medium",
+        {usersSwipeList.length == 0 ? (
+          <View className="h-3/5 w-3/4 rounded-md bg-white justify-center items-center">
+            <Text style={{ fontFamily: "Poppins_700Bold" }}>
+              No more profiles
+            </Text>
+          </View>
+        ) : (
+          <>
+            <Swiper
+              ref={swipeRef}
+              stackSize={5}
+              cardIndex={0}
+              animateCardOpacity
+              verticalSwipe={false}
+              overlayLabels={{
+                left: {
+                  title: "NOPE",
+                  style: {
+                    label: {
+                      textAlign: "center",
+                      color: "red",
+                      fontFamily: "Poppins_500Medium",
+                    },
+                  },
                 },
-              },
-            },
-            right: {
-              title: "LIKE ",
-              style: {
-                label: {
-                  textAlign: "left",
-                  color: "green",
-                  fontFamily: "Poppins_500Medium",
+                right: {
+                  title: "LIKE ",
+                  style: {
+                    label: {
+                      textAlign: "left",
+                      color: "green",
+                      fontFamily: "Poppins_500Medium",
+                    },
+                  },
                 },
-              },
-            },
-          }}
-          containerStyle={{ backgroundColor: "transparent" }}
-          cards={UsersData}
-          onSwipedRight={(i) => {
-            if (!UsersData[i]) return;
+              }}
+              containerStyle={{ backgroundColor: "transparent" }}
+              cards={usersSwipeList}
+              onSwipedRight={(i) => {
+                swipeController.swipeRight(currentUser, usersSwipeList[i]);
 
-            currentUser.swipeRight.push(UsersData[i].id);
-          }}
-          onSwipedLeft={(i) => {
-            if (!UsersData[i]) return;
+                db()
+                  .doc("users/" + usersSwipeList[i].id)
+                  .get()
+                  .then((d) => {
+                    const data = d.data();
+                    if (data.swipeRight.includes(currentUser.id)) {
+                      currentUser.matches.push(usersSwipeList[i].id);
+                      console.log("match");
+                      usersSwipeList[i].matches.push(currentUser.id);
 
-            currentUser.swipeLeft.push(UsersData[i].id);
-          }}
-          renderCard={(UsersData) =>
-            UsersData ? (
-              <SwipeUserCard {...UsersData} />
-            ) : (
-              <View className="h-3/5 w-3/4 rounded-md bg-white items-center">
-                <Text>No more profiles</Text>
-              </View>
-            )
-          }
-        />
+                      matchController
+                        .addMatch(currentUser)
+                        .then(() =>
+                          matchController.addMatch(usersSwipeList[i])
+                        );
+                    } else {
+                      usersSwipeList[i].likes.push(currentUser.id);
+                      likesController.addLike(usersSwipeList[i]);
+                    }
+                  });
+              }}
+              onSwipedLeft={(i) =>
+                swipeController.swipeLeft(currentUser, usersSwipeList[i])
+              }
+              renderCard={(UsersData) =>
+                UsersData ? (
+                  <SwipeUserCard
+                    name={UsersData.name}
+                    uni={UsersData.uni}
+                    age={UsersData.bornDate}
+                  />
+                ) : (
+                  <View className="h-3/5 w-3/4 rounded-md bg-white items-center">
+                    <Text>No more profiles</Text>
+                  </View>
+                )
+              }
+            />
+          </>
+        )}
       </View>
       <View className="flex flex-row mt-10">
         <TouchableOpacity

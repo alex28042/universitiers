@@ -10,10 +10,8 @@ import {
 import storage from "../data/storage";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../firebase-config";
-import { currentUser } from "../data/User";
 import { UserController } from "../api/user";
 import { usersSwipeList } from "../data/UsersSwipeList";
-import { Motion } from "@legendapp/motion";
 
 const WelcomeScreen = () => {
   const userController = new UserController();
@@ -33,14 +31,16 @@ const WelcomeScreen = () => {
         await auth
           .signInWithEmailAndPassword(userEmail, userPassword)
           .then(() => {
-            userController.getCurrentUser(userEmail);
-            console.log(currentUser, "current");
-            userController.getUsers();
-            console.log(usersSwipeList, "Swipe {}");
-            setTimeout(() => {
-              navigation.navigate("SwipeScreen");
-              setLoading(false);
-            }, 300);
+            userController.getCurrentUser(userEmail).then(() => {
+              if (usersSwipeList.length == 0) {
+                userController.getUsers().then(() => {
+                  navigation.navigate("SwipeScreen");
+                  setTimeout(() => {
+                    setLoading(false);
+                  }, 300);
+                });
+              }
+            });
           })
           .catch(() => {
             storage.remove("email");

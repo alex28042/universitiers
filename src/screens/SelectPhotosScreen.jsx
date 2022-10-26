@@ -20,9 +20,12 @@ const SelectPhotosScreen = () => {
       auth
         .createUserWithEmailAndPassword(currentUser.email, currentUser.password)
         .then(() => {
-          navigation.navigate("LoadScreen");
-          userController.createUser(currentUser);
-          userController.getUsers();
+          userController.createUser(currentUser).then(() => {
+            userController.getUsers();
+            setTimeout(() => {
+              navigation.navigate("LoadScreen");              
+            }, 200);
+          });
         })
         .catch(() => setErrorRegister(true));
     }

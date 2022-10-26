@@ -20,16 +20,19 @@ const LoginScreen = () => {
   const [errorLogIn, setErrorLogIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const userController = new UserController()
+  const userController = new UserController();
   const handleLogIn = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        userController.getCurrentUser(email)
-        userController.getUsers()
-        storage.set("email", email);
-        storage.set("password", password);
-        navigation.navigate("LoadScreen");        
+        userController.getCurrentUser(email).then(() => {
+          storage.set("email", email);
+          storage.set("password", password);
+          userController.getUsers();
+          setTimeout(() => {
+            navigation.navigate("LoadScreen");
+          }, 200);
+        });
       })
       .catch(() => {
         setErrorLogIn(true);
@@ -70,7 +73,9 @@ const LoginScreen = () => {
         </Text>
       </TouchableOpacity>
       {errorLogIn ? (
-        <Text style={{ fontFamily: "Poppins_500Medium" }}>Error in password or email</Text>
+        <Text style={{ fontFamily: "Poppins_500Medium" }}>
+          Error in password or email
+        </Text>
       ) : (
         <></>
       )}

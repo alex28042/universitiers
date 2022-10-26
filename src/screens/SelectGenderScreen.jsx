@@ -10,7 +10,6 @@ const SelectGenderScreen = () => {
   const [genderList, setGenderList] = useState([
     { value: "Man" },
     { value: "Woman" },
-    { value: "Other" },
   ]);
   const [genderListSearch, setGenderListSearch] = useState([
     { value: "Man" },

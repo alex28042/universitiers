@@ -1,7 +1,7 @@
 export const currentUser = {
   id: "",
   email: "",
-  bornDate: new Date(),
+  bornDate: [0, 0, 0],
   password: "",
   name: "",
   uni: "",

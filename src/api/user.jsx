@@ -57,8 +57,8 @@ export class UserController {
       .then((q) =>
         q.forEach((d) => {
           const data = d.data();
-          if (data.id != currentUser.id && data.gender == currentUser.genderSearch)
-            usersSwipeList.push({id: d.id, name: data.name, age: data.bornDate, uni: data.uni, bio: data.bio});
+          if (data.id != currentUser.id && data.gender == currentUser.genderSearch && !usersSwipeList.includes(data))
+            usersSwipeList.push({id: d.id, ...data});
         })
       );
   }

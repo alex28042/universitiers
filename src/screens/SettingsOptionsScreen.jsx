@@ -17,7 +17,6 @@ const SettingsOptionsScreen = ({ route }) => {
         style={{ position: "absolute", top: 80, left: 15 }}
         onPress={() => navigation.goBack()}
       />
-
       <Text
         style={{ fontFamily: "Poppins_700Bold" }}
         className="top-20 absolute text-2xl"
