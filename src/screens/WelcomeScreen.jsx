@@ -34,11 +34,11 @@ const WelcomeScreen = () => {
           .signInWithEmailAndPassword(userEmail, userPassword)
           .then(() => {
             userController.getCurrentUser(userEmail);
-            console.log(currentUser);
+            console.log(currentUser, "current");
             userController.getUsers();
-            console.log(usersSwipeList);
-            navigation.navigate("SwipeScreen");
+            console.log(usersSwipeList, "Swipe {}");
             setTimeout(() => {
+              navigation.navigate("SwipeScreen");
               setLoading(false);
             }, 300);
           })

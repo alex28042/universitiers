@@ -88,7 +88,7 @@ const SwipeScreen = () => {
 
             currentUser.swipeRight.push(UsersData[i].id);
           }}
-          onSwipedLeft={() => {
+          onSwipedLeft={(i) => {
             if (!UsersData[i]) return;
 
             currentUser.swipeLeft.push(UsersData[i].id);

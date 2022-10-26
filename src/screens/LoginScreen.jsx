@@ -25,10 +25,11 @@ const LoginScreen = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        navigation.navigate("LoadScreen");
         userController.getCurrentUser(email)
+        userController.getUsers()
         storage.set("email", email);
         storage.set("password", password);
+        navigation.navigate("LoadScreen");        
       })
       .catch(() => {
         setErrorLogIn(true);

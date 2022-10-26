@@ -53,12 +53,12 @@ export class UserController {
   async getUsers() {
     await db()
       .collection("users/")
-      .where("email", "!=", currentUser.email)
       .get()
       .then((q) =>
         q.forEach((d) => {
           const data = d.data();
-          usersSwipeList.push({id: d.id, ...data});
+          if (data.id != currentUser.id && data.gender == currentUser.genderSearch)
+            usersSwipeList.push({id: d.id, name: data.name, age: data.bornDate, uni: data.uni, bio: data.bio});
         })
       );
   }

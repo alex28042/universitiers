@@ -22,6 +22,7 @@ const SelectPhotosScreen = () => {
         .then(() => {
           navigation.navigate("LoadScreen");
           userController.createUser(currentUser);
+          userController.getUsers();
         })
         .catch(() => setErrorRegister(true));
     }
