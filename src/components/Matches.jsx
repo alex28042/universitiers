@@ -20,7 +20,7 @@ const Matches = () => {
           {currentUser.matches.length == 0 ? (
             <></>
           ) : (
-            currentUser.matches.map((e, i) => <ProfileMatches userId="e" key={i} />)
+            currentUser.matches.map((e, i) => <ProfileMatches userId={e} key={i} />)
           )}
         </View>
       </View>

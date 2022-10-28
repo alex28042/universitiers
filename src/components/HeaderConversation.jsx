@@ -3,7 +3,8 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const HeaderConversation = () => {
+const HeaderConversation = (props) => {
+  const userData = props.userDataChat
   const navigation = useNavigation();
 
   return (
@@ -21,9 +22,9 @@ const HeaderConversation = () => {
             style={{ fontFamily: "Poppins_700Bold" }}
             className="mt-2 text-lg"
           >
-            Name
+            {userData.name}
           </Text>
-          <Text style={{ fontFamily: "Poppins_500Medium" }}>Uni</Text>
+          <Text style={{ fontFamily: "Poppins_500Medium" }}>{userData.uni}</Text>
         </View>
       </View>
       <Ionicons

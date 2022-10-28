@@ -20,7 +20,7 @@ const LikesScreen = () => {
             {"No likes :/ keep swiping"}
           </Text>
         ) : (
-          currentUser.likes.map((e, i) => <LikesUserCard />)
+          currentUser.likes.map((e, i) => <LikesUserCard key={i}/>)
         )}
       </View>
       <Tabbar focus="Likes" />
