@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const HeaderConversation = (props) => {
-  const userData = props.userDataChat
+  const userData = props.userDataChat;
   const navigation = useNavigation();
 
   return (
@@ -16,7 +16,12 @@ const HeaderConversation = (props) => {
         onPress={() => navigation.goBack()}
       />
       <View className="mt-12 ml-14 w-full flex flex-row">
-        <TouchableOpacity className="h-14 w-14 bg-neutral-400 rounded-full" onPress={() => navigation.navigate("PreviewProfileScreen")}></TouchableOpacity>
+        <TouchableOpacity
+          className="h-14 w-14 bg-neutral-400 rounded-full"
+          onPress={() =>
+            navigation.navigate("PreviewProfileScreen", { user: userData })
+          }
+        ></TouchableOpacity>
         <View className="flex flex-col h-14 justify-between ml-3">
           <Text
             style={{ fontFamily: "Poppins_700Bold" }}
@@ -24,7 +29,9 @@ const HeaderConversation = (props) => {
           >
             {userData.name}
           </Text>
-          <Text style={{ fontFamily: "Poppins_500Medium" }}>{userData.uni}</Text>
+          <Text style={{ fontFamily: "Poppins_500Medium" }}>
+            {userData.uni}
+          </Text>
         </View>
       </View>
       <Ionicons

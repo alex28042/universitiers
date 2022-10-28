@@ -9,12 +9,15 @@ import {
 } from "@expo-google-fonts/poppins";
 import storage from "../data/storage";
 import { useNavigation } from "@react-navigation/native";
-import { auth } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 import { UserController } from "../api/user";
 import { usersSwipeList } from "../data/UsersSwipeList";
+import { currentUser, matches } from "../data/User";
+import { MatchController } from "../api/matches";
 
 const WelcomeScreen = () => {
   const userController = new UserController();
+  const matchController = new MatchController()
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   let [fontLoaded] = useFonts({
@@ -34,6 +37,7 @@ const WelcomeScreen = () => {
             userController.getCurrentUser(userEmail).then(() => {
               if (usersSwipeList.length == 0) {
                 userController.getUsers().then(() => {
+                  matchController.getMatchesCurrentUser()
                   navigation.navigate("SwipeScreen");
                   setTimeout(() => {
                     setLoading(false);

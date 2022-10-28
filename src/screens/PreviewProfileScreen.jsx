@@ -5,8 +5,10 @@ import CardProfile from "../components/PreviewProfile/CardProfile";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const PreviewProfileScreen = () => {
+const PreviewProfileScreen = ({route}) => {
   const navigation = useNavigation();
+  const { user } = route.params;
+
   return (
     <Layout>
       <Ionicons
@@ -16,9 +18,9 @@ const PreviewProfileScreen = () => {
         onPress={() => navigation.goBack()}
       />
       <Text style={{ fontFamily: "Poppins_700Bold" }} className="mt-20 text-xl">
-        @Name
+        {user.name}
       </Text>
-      <CardProfile />
+      <CardProfile user={user}/>
     </Layout>
   );
 };

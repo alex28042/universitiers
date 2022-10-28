@@ -4,16 +4,17 @@ import SwipeUserCard from "../SwipeUserCard";
 import { Ionicons } from "@expo/vector-icons";
 import { currentUser } from "../../data/User";
 
-const CardProfile = () => {
+const CardProfile = ({ user }) => {
+
   return (
     <View className="bg-white rounded-xl w-3/4 h-3/5 mt-10">
       <View className="bottom-0 absolute self-start w-full justify-between flex flex-row">
         <View className="flex flex-col ml-8">
           <Text style={{ fontFamily: "Poppins_700Bold" }}>
-            {currentUser.name}, {currentUser.age == 0 ? "age" : currentUser.age}
+            {user.name}, {user.age == 0 ? "age" : user.age}
           </Text>
           <Text style={{ fontFamily: "Poppins_500Medium" }}>
-            {currentUser.uni !== "" ? currentUser.uni : "No Uni Selected"}
+            {user.uni !== "" ? user.uni : "No Uni Selected"}
           </Text>
           <Text style={{ fontFamily: "Poppins_500Medium", marginBottom: 10 }}>
             Bio

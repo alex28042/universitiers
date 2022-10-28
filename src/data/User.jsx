@@ -14,3 +14,5 @@ export const currentUser = {
   gender: "",
   genderSearch: "",
 };
+
+export const matches = [];
