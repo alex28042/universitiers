@@ -14,7 +14,7 @@ const Chats = () => {
           Conversations
         </Text>
         {matches.map((e, i) => (
-          <ChatDetails user={e.id} key={i} />
+          <ChatDetails user={e} key={i} />
         ))}
       </View>
     </View>

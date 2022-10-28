@@ -6,27 +6,12 @@ import { currentUser } from "../data/User";
 
 const ChatDetails = ({ user }) => {
   const navigation = useNavigation();
-  const [userData, setUserData] = useState();
-
-  useLayoutEffect(() => {
-    db()
-      .doc("users/" + user)
-      .get()
-      .then((d) => {
-        const data = d.data();
-        setUserData(data);
-      });
-    /*db()
-      .doc("matches/" +  currentUser.id + user )
-      .get()
-      .then((d) => console.log(d.data()));*/
-  }, []);
-
+  
   return (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate("ChatConversationScreen", {
-          userDataChat: userData,
+          userDataChat: user,
         })
       }
       className="w-full h-16 justify-center z-50 bg-white"
@@ -35,7 +20,7 @@ const ChatDetails = ({ user }) => {
         <View className="h-10 w-10 rounded-full bg-neutral-400"></View>
         <View className="flex flex-col ml-4">
           <Text style={{ fontFamily: "Poppins_700Bold" }}>
-            {userData?.name}
+            {user.name}
           </Text>
           <Text style={{ fontFamily: "Poppins_500Medium" }}>msg</Text>
         </View>
