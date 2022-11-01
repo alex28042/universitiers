@@ -1,9 +1,10 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { TailwindProvider } from "tailwindcss-react-native";
 import ProfileMatches from "./ProfileMatches";
 import NumberOfLikesMatches from "./NumberOfLikesMatches";
-import { currentUser } from "../data/User";
+import { currentUser, matches } from "../data/User";
+import { db } from "../../firebase-config";
 
 const Matches = () => {
   return (
@@ -17,10 +18,10 @@ const Matches = () => {
         </Text>
         <View className="flex flex-row mt-2">
           <NumberOfLikesMatches />
-          {currentUser.matches.length == 0 ? (
+          {matches.length == 0 ? (
             <></>
           ) : (
-            currentUser.matches.map((e, i) => <ProfileMatches userId={e} key={i} />)
+            matches.map((e, i) => <ProfileMatches user={e} key={i} />)
           )}
         </View>
       </View>

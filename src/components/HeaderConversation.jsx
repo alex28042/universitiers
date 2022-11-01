@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -8,7 +8,7 @@ const HeaderConversation = (props) => {
   const navigation = useNavigation();
 
   return (
-    <View className="w-full h-28 top-0 absolute bg-white rounded-2xl">
+    <View className="w-full h-28 top-0 z-50 absolute bg-white rounded-2xl">
       <Ionicons
         name="chevron-back-outline"
         size={30}
@@ -21,7 +21,9 @@ const HeaderConversation = (props) => {
           onPress={() =>
             navigation.navigate("PreviewProfileScreen", { user: userData })
           }
-        ></TouchableOpacity>
+        >
+          <Image source={{ uri: userData.photosURL[0] }} className="w-full h-full rounded-full" />
+        </TouchableOpacity>
         <View className="flex flex-col h-14 justify-between ml-3">
           <Text
             style={{ fontFamily: "Poppins_700Bold" }}

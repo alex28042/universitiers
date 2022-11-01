@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import ButtonCustom from "../components/ButtonCustom";
@@ -9,15 +9,19 @@ import {
 } from "@expo-google-fonts/poppins";
 import storage from "../data/storage";
 import { useNavigation } from "@react-navigation/native";
-import { auth, db } from "../../firebase-config";
+import { auth, db, st } from "../../firebase-config";
 import { UserController } from "../api/user";
 import { usersSwipeList } from "../data/UsersSwipeList";
-import { currentUser, matches } from "../data/User";
+import { currentUser, matches, url } from "../data/User";
 import { MatchController } from "../api/matches";
+import { set } from "react-native-reanimated";
+import { LikesController } from "../api/likes";
 
 const WelcomeScreen = () => {
   const userController = new UserController();
-  const matchController = new MatchController()
+  const matchController = new MatchController();
+  const likesController = new LikesController();
+  const [Url, setUrl] = useState("");
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   let [fontLoaded] = useFonts({
@@ -36,12 +40,13 @@ const WelcomeScreen = () => {
           .then(() => {
             userController.getCurrentUser(userEmail).then(() => {
               if (usersSwipeList.length == 0) {
-                userController.getUsers().then(() => {
-                  matchController.getMatchesCurrentUser()
+                userController.getUsers().then(async () => {
+                  likesController.getLikesCurrentUser();
+                  matchController.getMatchesCurrentUser();
                   navigation.navigate("SwipeScreen");
                   setTimeout(() => {
                     setLoading(false);
-                  }, 300);
+                  }, 350);
                 });
               }
             });
@@ -58,16 +63,33 @@ const WelcomeScreen = () => {
   }, [loading]);
 
   if (loading) {
-    return (
+    return !fontLoaded ? (
       <Layout>
-        <ActivityIndicator />
+        <Image
+          className="h-72 w-72"
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/universitiers-c8b7c.appspot.com/o/Universitiers.png?alt=media&token=11231677-30c5-4c56-8c10-dd0679350c2c",
+          }}
+        />
+      </Layout>
+    ) : (
+      <Layout>
+        <Image
+          className="h-72 w-72"
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/universitiers-c8b7c.appspot.com/o/Universitiers.png?alt=media&token=11231677-30c5-4c56-8c10-dd0679350c2c",
+          }}
+        />
+        <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-3xl">
+          Universitiers
+        </Text>
       </Layout>
     );
   }
 
   return !fontLoaded ? (
     <Layout>
-      <ActivityIndicator />
+      <ActivityIndicator color={"white"} />
     </Layout>
   ) : (
     <Layout>

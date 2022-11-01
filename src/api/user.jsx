@@ -8,6 +8,7 @@ export class UserController {
   async createUser(user) {
     storage.set("email", currentUser.email);
     storage.set("password", currentUser.password);
+    console.log(user.photosURL);
     await db()
       .collection("users/")
       .add({
@@ -23,6 +24,7 @@ export class UserController {
         bornDate: user.bornDate,
         swipeLeft: user.swipeLeft,
         likes: user.swipeRight,
+        photosURL: user.photosURL
       })
       .then(() => console.log("user created"));
   }
@@ -47,6 +49,7 @@ export class UserController {
           currentUser.bornDate = data.bornDate;
           currentUser.swipeLeft = data.swipeLeft;
           currentUser.swipeRight = data.swipeRight
+          currentUser.photosURL = data.photosURL
         });
       });
   }

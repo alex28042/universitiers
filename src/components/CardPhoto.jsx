@@ -1,11 +1,18 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import React from "react";
 import { TailwindProvider } from "tailwindcss-react-native";
 
-const CardPhoto = () => {
+const CardPhoto = ({ photoURL }) => {
   return (
     <TailwindProvider>
-      <View className="h-28 w-16 rounded-md bg-white mr-4 mt-2"></View>
+      {photoURL !== undefined ? (
+        <Image
+          className="h-36 w-24 rounded-md mr-4 mt-2"
+          source={{ uri: photoURL }}
+        />
+      ) : (
+        <View className="h-36 w-24 rounded-md bg-white mr-4 mt-2"></View>
+      )}
     </TailwindProvider>
   );
 };

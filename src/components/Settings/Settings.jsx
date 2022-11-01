@@ -4,6 +4,7 @@ import ButtonSettings from "./ButtonSettings";
 import { auth } from "../../../firebase-config";
 import storage from "../../data/storage";
 import { useNavigation } from "@react-navigation/native";
+import { currentUser } from "../../data/User";
 
 const Settings = () => {
   const navigation = useNavigation();
@@ -48,17 +49,9 @@ const Settings = () => {
         <ButtonSettings
           radiusTopRight={0}
           radiusTopLeft={0}
-          radiusBottomLeft={0}
-          radiusBottomRight={0}
-          text={"Help"}
-          to="SettingsOptionsScreen"
-        />
-        <ButtonSettings
-          radiusTopRight={0}
-          radiusTopLeft={0}
           radiusBottomLeft={10}
           radiusBottomRight={10}
-          text={"Purchases"}
+          text={"Help"}
           to="SettingsOptionsScreen"
         />
       </View>

@@ -26,7 +26,6 @@ export class MatchController {
                 idMatch: d.id,
                 ...Object.values(d.data().users)[0],
               });
-          console.log(matches);
         });
       });
   }

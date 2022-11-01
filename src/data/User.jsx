@@ -13,6 +13,9 @@ export const currentUser = {
   bio: "",
   gender: "",
   genderSearch: "",
+  photosURL: [],
 };
 
 export const matches = [];
+
+export const likes = []; 

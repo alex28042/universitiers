@@ -3,7 +3,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import LikesUserCard from "../components/LikesUserCard";
 import Tabbar from "../navigation/Tabbar";
-import { currentUser } from "../data/User";
+import { currentUser, likes, matches } from "../data/User";
 
 const LikesScreen = () => {
   return (
@@ -20,7 +20,13 @@ const LikesScreen = () => {
             {"No likes :/ keep swiping"}
           </Text>
         ) : (
-          currentUser.likes.map((e, i) => <LikesUserCard key={i}/>)
+          likes.map((e, i) =>
+            matches.some((match) => match.id == likes[i].id) ? (
+              <></>
+            ) : (
+              <LikesUserCard key={i} user={e} />
+            )
+          )
         )}
       </View>
       <Tabbar focus="Likes" />

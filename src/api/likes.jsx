@@ -1,4 +1,5 @@
 import { db } from "../../firebase-config";
+import { currentUser, likes } from "../data/User";
 
 export class LikesController {
   async addLike(toUser) {
@@ -7,5 +8,14 @@ export class LikesController {
       .update({
         likes: toUser.likes,
       });
+  }
+
+  async getLikesCurrentUser() {
+    currentUser.likes.map((userId) => {
+      db()
+        .doc("users/" + userId)
+        .get()
+        .then((d) => likes.push({id: d.id, ...d.data()}));
+    });
   }
 }

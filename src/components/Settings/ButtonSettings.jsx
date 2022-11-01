@@ -14,9 +14,17 @@ const ButtonSettings = (props) => {
         borderBottomRightRadius: props.radiusBottomRight,
       }}
       className="w-3/4 justify-center h-10"
-      onPress={() => props.to ? navigation.navigate(props.to, {name: props.text}) : (props.onPress ? props.onPress : null)}
+      onPress={() =>
+        props.to
+          ? navigation.navigate(props.to, { name: props.text })
+          : props.onPress
+          ? props.onPress
+          : null
+      }
     >
-      <Text style={{fontFamily: 'Poppins_700Bold'}} className="ml-3">{props.text}</Text>
+      <Text style={{ fontFamily: "Poppins_700Bold" }} className="ml-3">
+        {props.text}
+      </Text>
     </TouchableOpacity>
   );
 };

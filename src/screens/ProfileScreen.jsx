@@ -9,7 +9,12 @@ import Tabbar from "../navigation/Tabbar";
 const ProfileScreen = () => {
   return (
     <Layout>
-      <Text className="text-2xl mb-10" style={{fontFamily: 'Poppins_700Bold'}}>Your Profile</Text>
+      <Text
+        className="text-2xl mb-10"
+        style={{ fontFamily: "Poppins_700Bold" }}
+      >
+        Your Profile
+      </Text>
       <ProfileDetails />
       <ProfilePhotos />
       <ProfileAboutYou />

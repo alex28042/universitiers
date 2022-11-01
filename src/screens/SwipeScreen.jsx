@@ -2,24 +2,21 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ActivityIndicator,
-  Modal,
+  Image,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Layout from "../components/Layout";
 import SwipeUserCard from "../components/SwipeUserCard";
 import Tabbar from "../navigation/Tabbar";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-deck-swiper";
-import { UserController } from "../api/user";
 import { usersSwipeList } from "../data/UsersSwipeList";
-import { currentUser } from "../data/User";
+import { currentUser, url } from "../data/User";
 import { db } from "../../firebase-config";
 import { LikesController } from "../api/likes";
 import { MatchController } from "../api/matches";
 import { SwipeController } from "../api/swipe";
-import Animated from "react-native-reanimated";
 import MatchPopUp from "../components/Match/MatchPopUp";
 
 const SwipeScreen = () => {
@@ -28,6 +25,7 @@ const SwipeScreen = () => {
   const likesController = new LikesController();
   const matchController = new MatchController();
   const swipeController = new SwipeController();
+  const [matchDetailsPopUp, setMatchDetailsPopUp] = useState(null);
   const [visible, setVisible] = useState(false);
 
   return (
@@ -43,15 +41,11 @@ const SwipeScreen = () => {
           style={{ position: "absolute", right: 10 }}
         />
       </View>
-      <TouchableOpacity
-        onPress={() => setVisible(true)}
-        className="h-10 w-10 bg-black"
-      ></TouchableOpacity>
-      <View className="h-3/5 w-3/4">
+      <View className="h-3/5 items-center justify-center w-3/4">
         {usersSwipeList.length == 0 ? (
           <View className="h-3/5 w-3/4 rounded-md bg-white justify-center items-center">
             <Text style={{ fontFamily: "Poppins_700Bold" }}>
-              No more profiles
+              No more profiles :/
             </Text>
           </View>
         ) : (
@@ -94,6 +88,7 @@ const SwipeScreen = () => {
                   .get()
                   .then((d) => {
                     const data = d.data();
+                    console.log(data.swipeRight.includes(currentUser.id));
                     if (data.swipeRight.includes(currentUser.id)) {
                       currentUser.matches.push(usersSwipeList[i].id);
                       db()
@@ -105,6 +100,11 @@ const SwipeScreen = () => {
                             [usersSwipeList[i].id]: usersSwipeList[i],
                           },
                           usersMatched: [currentUser.id, usersSwipeList[i].id],
+                        })
+                        .then(() => {
+                          setMatchDetailsPopUp(usersSwipeList[i]);
+                          matchController.getMatchesCurrentUser();
+                          setVisible(true);
                         });
                       console.log("match");
                       usersSwipeList[i].matches.push(currentUser.id);
@@ -129,6 +129,7 @@ const SwipeScreen = () => {
                     name={UsersData.name}
                     uni={UsersData.uni}
                     age={UsersData.bornDate}
+                    user={UsersData}
                   />
                 ) : (
                   <View className="h-3/5 w-3/4 rounded-md bg-white items-center">
@@ -155,12 +156,13 @@ const SwipeScreen = () => {
         <View className="mt-5 flex flex-row">
           <Text style={{ fontFamily: "Poppins_500Medium" }}>
             You have a match with
-            {currentUser.matches[currentUser.matches.length]
-              ? currentUser.matches[currentUser.matches.length]
-              : " Delgado"}
+            {matchDetailsPopUp?.name}
           </Text>
         </View>
-        <View className="mt-4 rounded-full bg-slate-500 h-20 w-20"></View>
+        <Image
+          source={{ uri: matchDetailsPopUp?.photosURL[0] }}
+          className="mt-4 rounded-full  h-20 w-20"
+        ></Image>
         <TouchableOpacity
           onPress={() => {
             setVisible(false);

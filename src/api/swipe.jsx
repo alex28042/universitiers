@@ -1,12 +1,13 @@
 import { db } from "../../firebase-config";
 
 export class SwipeController {
-  async swipeRight(currentUser, swipedUser) {
-    currentUser.swipeRight.push(swipedUser.id);
+  async swipeRight(user, swipedUser) {
+    console.log(user,swipedUser);
+    user.swipeRight.push(swipedUser.id);
     await db()
-      .doc("users/" + currentUser.id)
+      .doc("users/" + user.id)
       .update({
-        swipeRight: currentUser.swipeRight,
+        swipeRight: user.swipeRight,
       });
   }
 

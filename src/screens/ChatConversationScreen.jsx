@@ -25,13 +25,16 @@ const ChatConversationScreen = ({ route }) => {
     db()
       .doc("matches/" + userDataChat.idMatch)
       .collection("messages")
+      .orderBy("createdAt", "asc")
       .onSnapshot((q) => {
-        q.forEach((d) => {
-          if (!messages.some(e => e.id === d.id))
-            messages.push({ id: d.id, ...d.data() });
-        });
+        setMessages(
+          q.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
+        );
       });
-  }, [userDataChat, db]);
+  }, [userDataChat, db()]);
 
   const sendMessage = () => {
     if (input != "") {
@@ -42,17 +45,16 @@ const ChatConversationScreen = ({ route }) => {
           userId: currentUser.id,
           displayName: currentUser.name,
           message: input,
+          createdAt: db.FieldValue.serverTimestamp(),
         });
     }
-  
+
     setInput("");
   };
-  console.log(messages[0]?.userId === currentUser.id);
   return (
     <Layout>
       <HeaderConversation userDataChat={userDataChat} />
-      <View style={{ height: "70%"}} className="w-full">
-
+      <View style={{ height: "75%", marginTop: 30 }} className="w-full">
         <FlatList
           data={messages}
           keyExtractor={(item) => item.id}
