@@ -51,6 +51,7 @@ const ChatConversationScreen = ({ route }) => {
 
     setInput("");
   };
+  
   return (
     <Layout>
       <HeaderConversation userDataChat={userDataChat} />

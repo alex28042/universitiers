@@ -643,60 +643,79 @@ const SettingsScreens = (props) => {
         </>
       );
     case "Help":
+      const [visibleHaveAQuestion, setVisibleHaveAQuestion] = useState(false);
+
       return (
-        <View className="h-3/4 w-full bottom-0 absolute rounded-t-3xl justify-center items-center bg-white">
-          <View className="w-full items-center">
-            <ButtonSettings
-              radiusTopRight={10}
-              radiusTopLeft={10}
-              radiusBottomLeft={0}
-              radiusBottomRight={0}
-              text={"I have a question"}
-            />
-            <ButtonSettings
-              radiusTopRight={0}
-              radiusTopLeft={0}
-              radiusBottomLeft={0}
-              radiusBottomRight={0}
-              text={"Contact us"}
-            />
-            <ButtonSettings
-              radiusTopRight={0}
-              radiusTopLeft={0}
-              radiusBottomLeft={10}
-              radiusBottomRight={10}
-              text={"Take me to Privacy settings"}
-            />
+        <>
+          <View className="h-3/4 w-full bottom-0 absolute rounded-t-3xl justify-center items-center bg-white">
+            <View className="w-full items-center">
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#9FA0FF",
+                  borderTopRightRadius: 10,
+                  borderTopLeftRadius: 10,
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 0,
+                }}
+                className="w-3/4 justify-center h-10"
+                onPress={() => setVisibleHaveAQuestion(true)}
+              >
+                <Text
+                  style={{ fontFamily: "Poppins_700Bold" }}
+                  className="ml-3"
+                >
+                  I have a question
+                </Text>
+              </TouchableOpacity>
+          
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#9FA0FF",
+                  borderTopRightRadius: 0,
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                }}
+                className="w-3/4 justify-center h-10"
+                onPress={() => navigation.goBack()}
+              >
+                <Text
+                  style={{ fontFamily: "Poppins_700Bold" }}
+                  className="ml-3"
+                >
+                  Take me to Privacy settings
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      );
-    case "Purchases":
-      return (
-        <View className="h-3/4 w-full bottom-0 absolute rounded-t-3xl justify-center items-center bg-white">
-          <View className="">
-            <ButtonSettings
-              radiusTopRight={10}
-              radiusTopLeft={10}
-              radiusBottomLeft={0}
-              radiusBottomRight={0}
-              text={"Account"}
+          <MatchPopUp visible={visibleHaveAQuestion}>
+            <Ionicons
+              name="close-outline"
+              size={40}
+              onPress={() => setVisibleHaveAQuestion(false)}
             />
-            <ButtonSettings
-              radiusTopRight={10}
-              radiusTopLeft={10}
-              radiusBottomLeft={0}
-              radiusBottomRight={0}
-              text={"Privacy settings"}
+            <Text
+              style={{ fontFamily: "Poppins_700Bold" }}
+              className="text-lg mt-5"
+            >
+              I have a question
+            </Text>
+            <TextInput
+              placeholder="Write the question"
+              style={{ fontFamily: "Poppins_700Bold" }}
+              className="w-3/4 h-20 rounded-2xl"
             />
-            <ButtonSettings
-              radiusTopRight={10}
-              radiusTopLeft={10}
-              radiusBottomLeft={0}
-              radiusBottomRight={0}
-              text={"Push notifications"}
-            />
-          </View>
-        </View>
+            <TouchableOpacity
+              onPress={() => {
+                setVisibleHaveAQuestion(false);
+              }}
+              style={{ backgroundColor: "#9FA0FF" }}
+              className="bottom-5 absolute w-40 items-center justify-center h-14 rounded-2xl"
+            >
+              <Text style={{ fontFamily: "Poppins_700Bold" }}>Save</Text>
+            </TouchableOpacity>
+          </MatchPopUp>
+        </>
       );
 
     case "Delete Account":

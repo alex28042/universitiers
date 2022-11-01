@@ -31,7 +31,7 @@ const SwipeScreen = () => {
   return (
     <Layout>
       <View className="w-full items-end absolute top-16 flex flex-row justify-center">
-        <Text className="text-xl" style={{ fontFamily: "Poppins_700Bold" }}>
+        <Text className="text-2xl" style={{ fontFamily: "Poppins_700Bold" }}>
           Univesitiers
         </Text>
         <Ionicons

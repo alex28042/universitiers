@@ -16,27 +16,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const regexEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
-
-  /*const createUser = (email, password, name) => {
-    if (
-      name != "" &&
-      email != "" &&
-      password != "" &&
-      password.length > 6 &&
-      regexEmail.test(email)
-    ) {
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          navigation.navigate("UnivesitySelectScreen");
-          userController.createUser(currentUser, email, password, firstName);
-        })
-        .catch(() => setErrorRegister(true));
-    }
-
-    password?.length < 6 ? setPasswordError(true) : setPasswordError(false);
-  };*/
-
+  
   const handleRegister = () => {
     if (
       firstName != "" &&

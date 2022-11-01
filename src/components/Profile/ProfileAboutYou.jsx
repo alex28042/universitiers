@@ -10,6 +10,7 @@ import { Ionicons } from "@expo/vector-icons";
 import MatchPopUp from "../Match/MatchPopUp";
 import { currentUser } from "../../data/User";
 import SelectList from "react-native-dropdown-select-list/index";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileAboutYou = () => {
   const [universitiesList, setUniversitiesList] = useState([{ value: "UPM" }]);
@@ -17,7 +18,7 @@ const ProfileAboutYou = () => {
   const [bioVisible, setBioVisible] = useState(false);
   const [swipeSettingsVisible, setSwipeSettingsVisible] = useState(false);
   const [editProfileVisible, seteditProfileVisible] = useState(false);
-
+  const navigation = useNavigation()
   return (
     <View className="w-full mt-5 items-center">
       <View className="w-full ml-20 mb-2">
@@ -57,6 +58,7 @@ const ProfileAboutYou = () => {
           height: 40,
           backgroundColor: "white",
         }}
+        onPress={() => navigation.navigate("SettingsScreen")}
         className="justify-between items-center rounded-lg mt-1 flex flex-row"
       >
         <Text className="ml-2" style={{ fontFamily: "Poppins_500Medium" }}>
