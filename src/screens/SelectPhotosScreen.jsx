@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import CardPhoto from "../components/CardPhoto";
@@ -26,6 +26,7 @@ const SelectPhotosScreen = () => {
             setTimeout(() => {
               console.log(currentUser.photosURL);
               userController.createUser(currentUser).then(() => {
+                setLoading(true);
                 userController.getUsers();
                 setTimeout(() => {
                   navigation.navigate("LoadScreen");
@@ -78,6 +79,7 @@ const SelectPhotosScreen = () => {
         <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-3xl">
           Universitiers
         </Text>
+        <Text className="mt-4 text-xl" style={{ fontFamily: "Poppins_500Medium" }}>Loading...</Text>
       </Layout>
     );
   }

@@ -19,7 +19,12 @@ const AgeSelectionScreen = () => {
       let ageDate = new Date(ageDifMs);
       return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
-    if (day != 0 && month != 0 && year != 0 && calculateAge(new Date(year, month, day)) >= 18) {
+    if (
+      day != 0 &&
+      month != 0 &&
+      year != 0 &&
+      calculateAge(new Date(year, month, day)) >= 18
+    ) {
       currentUser.bornDate = [day, month, year];
       navigation.navigate("SelectGenderScreen");
     } else setErrorBirthday(true);
@@ -63,6 +68,7 @@ const AgeSelectionScreen = () => {
         <TextInput
           onChangeText={(text) => setMonth(text)}
           placeholder="MM"
+          keyboardType="numeric"
           maxLength={2}
           style={{ fontSize: 20, fontFamily: "Poppins_500Medium" }}
         />
@@ -72,6 +78,7 @@ const AgeSelectionScreen = () => {
         <TextInput
           onChangeText={(text) => setYear(text)}
           placeholder="YYYY"
+          keyboardType="numeric"
           maxLength={4}
           style={{ fontSize: 20, fontFamily: "Poppins_500Medium" }}
         />

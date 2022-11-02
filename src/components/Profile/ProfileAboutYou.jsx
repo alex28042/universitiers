@@ -11,14 +11,16 @@ import MatchPopUp from "../Match/MatchPopUp";
 import { currentUser } from "../../data/User";
 import SelectList from "react-native-dropdown-select-list/index";
 import { useNavigation } from "@react-navigation/native";
+import { db } from "../../../firebase-config";
 
 const ProfileAboutYou = () => {
+  const [bio, setBio] = useState("");
   const [universitiesList, setUniversitiesList] = useState([{ value: "UPM" }]);
   const [university, setUniversity] = useState("");
   const [bioVisible, setBioVisible] = useState(false);
   const [swipeSettingsVisible, setSwipeSettingsVisible] = useState(false);
   const [editProfileVisible, seteditProfileVisible] = useState(false);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   return (
     <View className="w-full mt-5 items-center">
       <View className="w-full ml-20 mb-2">
@@ -79,6 +81,7 @@ const ProfileAboutYou = () => {
           Change Bio
         </Text>
         <TextInput
+          onChangeText={(text) => setBio(text)}
           style={{
             backgroundColor: "#9FA0FF",
             fontFamily: "Poppins_700Bold",
@@ -89,6 +92,14 @@ const ProfileAboutYou = () => {
         />
         <TouchableOpacity
           onPress={() => {
+            if (bio != "") {
+              db()
+                .doc("users/" + currentUser.id)
+                .update({
+                  bio: bio,
+                })
+                .then(() => (currentUser.bio = bio));
+            }
             setBioVisible(false);
           }}
           style={{ backgroundColor: "#9FA0FF" }}
@@ -132,6 +143,9 @@ const ProfileAboutYou = () => {
 
         <TouchableOpacity
           onPress={() => {
+            if (university != "") {
+              //update search universiy
+            }
             setSwipeSettingsVisible(false);
           }}
           style={{ backgroundColor: "#9FA0FF" }}
