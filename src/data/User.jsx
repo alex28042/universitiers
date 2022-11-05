@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export const currentUser = {
   id: "",
   email: "",
@@ -14,6 +16,13 @@ export const currentUser = {
   gender: "",
   genderSearch: "",
   photosURL: [],
+  locationPrivacy: false,
+  cameraPrivacy: false,
+  newFriendsNotification: false,
+  newMessagesNotification: false,
+  likesNotification: false,
+  matchesNotifications: false,
+  swipeUniversity: "All",
 };
 
 export const matches = [];

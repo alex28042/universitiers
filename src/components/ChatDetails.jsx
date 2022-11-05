@@ -3,11 +3,13 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../../firebase-config";
 import { currentUser, matches } from "../data/User";
+import jsort from "jsort";
 
 const ChatDetails = ({ user }) => {
   const navigation = useNavigation();
   const [lastMessage, setLastMessage] = useState([]);
   const [recieverLastMessage, setRecieverLastMessage] = useState(false);
+  const [noMessages, setNoMessages] = useState(false);
 
   useLayoutEffect(() => {
     db()
@@ -15,6 +17,7 @@ const ChatDetails = ({ user }) => {
       .collection("messages")
       .orderBy("createdAt", "asc")
       .onSnapshot((q) => {
+        q.size > 0 ? setNoMessages(false) : setNoMessages(true)
         setLastMessage(
           q.docs.map((doc) => ({
             id: doc.id,
@@ -22,6 +25,7 @@ const ChatDetails = ({ user }) => {
           }))
         );
       });
+
   }, [user.idMatch, db]);
 
   useEffect(() => {
@@ -30,7 +34,9 @@ const ChatDetails = ({ user }) => {
       : setRecieverLastMessage(true);
   }, [lastMessage]);
 
-  return (
+  return noMessages ? (
+    <></>
+  ) : (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate("ChatConversationScreen", {

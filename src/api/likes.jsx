@@ -3,11 +3,12 @@ import { currentUser, likes } from "../data/User";
 
 export class LikesController {
   async addLike(toUser) {
+    console.log(toUser);
     db()
       .doc("users/" + toUser.id)
       .update({
         likes: toUser.likes,
-      });
+      }).catch((e) => console.error(e));
   }
 
   async getLikesCurrentUser() {
@@ -15,7 +16,7 @@ export class LikesController {
       db()
         .doc("users/" + userId)
         .get()
-        .then((d) => likes.push({id: d.id, ...d.data()}));
+        .then((d) => likes.push({ id: d.id, ...d.data() }));
     });
   }
 }

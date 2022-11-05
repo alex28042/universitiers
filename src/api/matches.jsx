@@ -21,10 +21,12 @@ export class MatchController {
             ? matches.push({
                 idMatch: d.id,
                 ...Object.values(d.data().users)[1],
+                time: new Date(d.data().time.seconds * 1000),
               })
             : matches.push({
                 idMatch: d.id,
                 ...Object.values(d.data().users)[0],
+                time: new Date(d.data().time.seconds * 1000),
               });
         });
       });

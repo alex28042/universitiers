@@ -43,7 +43,7 @@ const WelcomeScreen = () => {
                 userController.getUsers().then(async () => {
                   likesController.getLikesCurrentUser();
                   matchController.getMatchesCurrentUser();
-                  navigation.navigate("SwipeScreen");
+                  navigation.navigate("LoadScreen");
                   setTimeout(() => {
                     setLoading(false);
                   }, 350);

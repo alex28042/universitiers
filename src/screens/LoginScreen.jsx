@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  Image,
 } from "react-native";
 import React, { useState } from "react";
 import Layout from "../components/Layout";
@@ -17,6 +18,7 @@ import storage from "../data/storage";
 import { UserController } from "../api/user";
 import { MatchController } from "../api/matches";
 import { LikesController } from "../api/likes";
+import { usersSwipeList } from "../data/UsersSwipeList";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -26,6 +28,8 @@ const LoginScreen = () => {
   const userController = new UserController();
   const likesController = new LikesController();
   const matchController = new MatchController();
+  const [loadin, setLoadin] = useState(false);
+  const [attempUserSwipeList, setAttempUserSwipeList] = useState(0)
 
   const handleLogIn = (email, password) => {
     auth
@@ -34,19 +38,42 @@ const LoginScreen = () => {
         userController.getCurrentUser(email).then(() => {
           storage.set("email", email);
           storage.set("password", password);
-          userController.getUsers().then(() => {
-            likesController.getLikesCurrentUser();
-            matchController.getMatchesCurrentUser();
-            setTimeout(() => {
+          if (attempUserSwipeList == 0) {
+            setAttempUserSwipeList(attempUserSwipeList + 1)
+            userController.getUsers().then(async () => {
+              setLoadin(true);
+              likesController.getLikesCurrentUser();
+              matchController.getMatchesCurrentUser();
               navigation.navigate("LoadScreen");
-            }, 270);
-          });
+              setTimeout(() => {
+                setLoadin(false)
+              }, 350);
+            });
+          }
         });
       })
       .catch(() => {
         setErrorLogIn(true);
+        setLoadin(false);
       });
   };
+
+  if (loadin) {
+    return (
+      <Layout>
+        <Image
+          className="h-72 w-72"
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/universitiers-c8b7c.appspot.com/o/Universitiers.png?alt=media&token=11231677-30c5-4c56-8c10-dd0679350c2c",
+          }}
+        />
+        <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-3xl">
+          Universitiers
+        </Text>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <KeyboardAvoidingView

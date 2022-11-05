@@ -1,9 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useRef, useState } from "react";
 import Layout from "../components/Layout";
 import SwipeUserCard from "../components/SwipeUserCard";
@@ -82,15 +77,19 @@ const SwipeScreen = () => {
               cards={usersSwipeList}
               onSwipedRight={(i) => {
                 swipeController.swipeRight(currentUser, usersSwipeList[i]);
-
+                console.log(usersSwipeList);
                 db()
                   .doc("users/" + usersSwipeList[i].id)
                   .get()
                   .then((d) => {
+                    console.log(currentUser.id);
+                    console.log(usersSwipeList[i].id);
                     const data = d.data();
                     console.log(data.swipeRight.includes(currentUser.id));
                     if (data.swipeRight.includes(currentUser.id)) {
                       currentUser.matches.push(usersSwipeList[i].id);
+                      console.log(currentUser.id);
+                      console.log(usersSwipeList[i].id);
                       db()
                         .collection("matches/")
                         .doc(currentUser.id + usersSwipeList[i].id)
@@ -100,6 +99,7 @@ const SwipeScreen = () => {
                             [usersSwipeList[i].id]: usersSwipeList[i],
                           },
                           usersMatched: [currentUser.id, usersSwipeList[i].id],
+                          time: new Date(),
                         })
                         .then(() => {
                           setMatchDetailsPopUp(usersSwipeList[i]);
@@ -116,7 +116,10 @@ const SwipeScreen = () => {
                         );
                     } else {
                       usersSwipeList[i].likes.push(currentUser.id);
-                      likesController.addLike(usersSwipeList[i]);
+                      likesController
+                        .addLike(usersSwipeList[i])
+                        .then(() => console.log("added like"))
+                        .catch((e) => console.error(e));
                     }
                   });
               }}
@@ -126,6 +129,7 @@ const SwipeScreen = () => {
               renderCard={(UsersData) =>
                 UsersData ? (
                   <SwipeUserCard
+                    bio={UsersData.bio}
                     name={UsersData.name}
                     uni={UsersData.uni}
                     age={UsersData.bornDate}

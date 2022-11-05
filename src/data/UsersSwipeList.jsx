@@ -1,1 +1,1 @@
-export const usersSwipeList = []
+export const usersSwipeList = [];

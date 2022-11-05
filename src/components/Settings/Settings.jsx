@@ -4,7 +4,8 @@ import ButtonSettings from "./ButtonSettings";
 import { auth } from "../../../firebase-config";
 import storage from "../../data/storage";
 import { useNavigation } from "@react-navigation/native";
-import { currentUser } from "../../data/User";
+import { currentUser, likes, matches } from "../../data/User";
+import { usersSwipeList } from "../../data/UsersSwipeList";
 
 const Settings = () => {
   const navigation = useNavigation();
@@ -66,6 +67,7 @@ const Settings = () => {
           }}
           className="w-3/4 justify-center h-10"
           onPress={() => {
+            console.log(currentUser);
             auth
               .signOut()
               .then(() => {
@@ -73,7 +75,7 @@ const Settings = () => {
                 storage.remove("password");
                 navigation.navigate("LoginScreen");
               })
-              .catch(() => console.log("no logout"));
+              .catch((e) => console.error(e));
           }}
         >
           <Text style={{ fontFamily: "Poppins_700Bold" }} className="ml-3">

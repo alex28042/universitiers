@@ -5480,6 +5480,11 @@
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
+"jsort@^1.0.3":
+  "integrity" "sha512-SpNXg9uMMiRa12/U+knepHOyNvNz+Q7OPRZZlU6c4wRd+uO8aUpsCnJp2XBv5byq4V7Tn71/MHYcFX0NdCduEA=="
+  "resolved" "https://registry.npmjs.org/jsort/-/jsort-1.0.3.tgz"
+  "version" "1.0.3"
+
 "jsx-ast-utils@^2.4.1 || ^3.0.0":
   "integrity" "sha512-fYQHZTZ8jSfmWZ0iyzfwiU4WDX4HpHbMCZ3gPlWYiCl3BoeOTsqKBqnTVfH2rYT7eP5c3sVbeSPHnnJOaTrWiw=="
   "resolved" "https://registry.npmjs.org/jsx-ast-utils/-/jsx-ast-utils-3.3.3.tgz"
@@ -7036,6 +7041,11 @@
   dependencies:
     "prop-types" "^15.7.2"
 
+"react-native-autoscroll-flatlist@^1.11.2":
+  "integrity" "sha512-W0NCcuVZ0uaJBgPGLvDyS1lxRxIyg1tEYx6c8AHr6XX9smjypIJDrEN+2yg2ogBJELoGFjHmtMxWCYPrVxr8Sg=="
+  "resolved" "https://registry.npmjs.org/react-native-autoscroll-flatlist/-/react-native-autoscroll-flatlist-1.11.2.tgz"
+  "version" "1.11.2"
+
 "react-native-codegen@^0.69.2":
   "integrity" "sha512-yPcgMHD4mqLbckqnWjFBaxomDnBREfRjDi2G/WxNyPBQLD+PXUEmZTkDx6QoOXN+Bl2SkpnNOSsLE2+/RUHoPw=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.69.2.tgz"
@@ -7138,7 +7148,7 @@
   "resolved" "https://registry.npmjs.org/react-native-switch-with-icons/-/react-native-switch-with-icons-3.0.1.tgz"
   "version" "3.0.1"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.70 || 1000.0.0", "react-native@^0.49.1", "react-native@>=0.42.0", "react-native@>=0.57", "react-native@>=0.65.0", "react-native@0.69.6":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.70 || 1000.0.0", "react-native@^0.49.1", "react-native@^0.64.3", "react-native@>=0.42.0", "react-native@>=0.57", "react-native@>=0.65.0", "react-native@0.69.6":
   "integrity" "sha512-wwXpqM+12kdEYdBZCJUb5SBu95CzgejrwFeYJ78RzHZV/Sj6DBRekbsHGrDDsY4R25QXALQxy4DQYQCObVvWjA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.69.6.tgz"
   "version" "0.69.6"
@@ -7206,7 +7216,7 @@
     "object-assign" "^4.1.1"
     "react-is" "^16.12.0 || ^17.0.0 || ^18.0.0"
 
-"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0-beta.5 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@>=16.0", "react@>=17.0.0", "react@18.0.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0-beta.5 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2", "react@>=16.0", "react@>=17.0.0", "react@18.0.0":
   "integrity" "sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.0.0.tgz"
   "version" "18.0.0"

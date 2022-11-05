@@ -24,13 +24,13 @@ const SelectPhotosScreen = () => {
         .then(() => {
           uploadPhotos().then(() => {
             setTimeout(() => {
-              console.log(currentUser.photosURL);
               userController.createUser(currentUser).then(() => {
                 setLoading(true);
-                userController.getUsers();
-                setTimeout(() => {
-                  navigation.navigate("LoadScreen");
-                }, 100);
+                userController.getUsers().then(() => {
+                  setTimeout(() => {
+                    navigation.navigate("LoadScreen");
+                  }, 100);
+                });
               });
             }, 1000);
           });
@@ -79,7 +79,12 @@ const SelectPhotosScreen = () => {
         <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-3xl">
           Universitiers
         </Text>
-        <Text className="mt-4 text-xl" style={{ fontFamily: "Poppins_500Medium" }}>Loading...</Text>
+        <Text
+          className="mt-4 text-xl"
+          style={{ fontFamily: "Poppins_500Medium" }}
+        >
+          Loading...
+        </Text>
       </Layout>
     );
   }

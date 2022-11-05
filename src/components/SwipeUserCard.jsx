@@ -65,9 +65,23 @@ const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
             <Text style={{ fontFamily: "Poppins_700Bold" }}>
               {name},{getAge(new Date(age[2], age[1], age[0]))}
             </Text>
-            <Text style={{ fontFamily: "Poppins_500Medium", marginBottom: 10 }}>
+            <Text
+              style={{
+                fontFamily: "Poppins_500Medium",
+                marginBottom: bio ? 0 : 10,
+              }}
+            >
               {uni}
             </Text>
+            {bio ? (
+              <Text
+                style={{ fontFamily: "Poppins_500Medium", marginBottom: 10 }}
+              >
+                {bio}
+              </Text>
+            ) : (
+              <></>
+            )}
           </View>
           <Ionicons
             name="information-circle-outline"

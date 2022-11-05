@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { LogData } from "react-native/Libraries/LogBox/LogBox";
 import { auth, db } from "../../firebase-config";
 import storage from "../data/storage";
 import { currentUser } from "../data/User";
@@ -24,10 +25,18 @@ export class UserController {
         bornDate: user.bornDate,
         swipeLeft: user.swipeLeft,
         likes: user.swipeRight,
-        photosURL: user.photosURL
+        photosURL: user.photosURL,
+        locationPrivacy: user.locationPrivacy,
+        cameraPrivacy: user.cameraPrivacy,
+        newFriendsNotification: user.newFriendsNotification,
+        newMessagesNotification: user.newMessagesNotification,
+        likesNotification: user.likesNotification,
+        matchesNotifications: user.matchesNotifications,
+        swipeUniversity: user.swipeUniversity,
       })
       .then(() => console.log("user created"));
   }
+
   async getCurrentUser(emailId) {
     await db()
       .collection("users")
@@ -48,8 +57,14 @@ export class UserController {
           currentUser.genderSearch = data.genderSearch;
           currentUser.bornDate = data.bornDate;
           currentUser.swipeLeft = data.swipeLeft;
-          currentUser.swipeRight = data.swipeRight
-          currentUser.photosURL = data.photosURL
+          currentUser.swipeRight = data.swipeRight;
+          currentUser.photosURL = data.photosURL;
+          currentUser.locationPrivacy = data.locationPrivacy;
+          currentUser.cameraPrivacy = data.cameraPrivacy;
+          currentUser.newFriendsNotification = data.newFriendsNotification;
+          currentUser.newMessagesNotification = data.newFriendsNotification;
+          currentUser.matchesNotifications = data.matchesNotifications;
+          currentUser.swipeUniversity = data.swipeUniversity;
         });
       });
   }
@@ -60,8 +75,13 @@ export class UserController {
       .then((q) =>
         q.forEach((d) => {
           const data = d.data();
-          if (data.id != currentUser.id && data.gender == currentUser.genderSearch && !usersSwipeList.includes(data))
-            usersSwipeList.push({id: d.id, ...data});
+          if (
+            data.id != currentUser.id &&
+            data.gender == currentUser.genderSearch &&
+            !usersSwipeList.includes(data) &&
+            !currentUser.swipeRight.includes(data.id)
+          )
+            usersSwipeList.push({ id: d.id, ...data });
         })
       );
   }

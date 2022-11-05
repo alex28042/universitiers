@@ -14,7 +14,8 @@ import SenderMessage from "../components/Conversation/SenderMessage";
 import RecieverMessage from "../components/Conversation/RecieverMessage";
 import { Ionicons } from "@expo/vector-icons";
 import { db } from "../../firebase-config";
-import { currentUser } from "../data/User";
+import { currentUser, matches } from "../data/User";
+import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
 
 const ChatConversationScreen = ({ route }) => {
   const { userDataChat } = route.params;
@@ -33,6 +34,15 @@ const ChatConversationScreen = ({ route }) => {
             ...doc.data(),
           }))
         );
+        db()
+          .doc("matches/" + userDataChat.idMatch)
+          .update({
+            time: db.FieldValue.serverTimestamp(),
+          });
+          console.log(new Date());
+          matches.map((match) => {
+            if (match.idMatch === userDataChat.idMatch) match.time = new Date()
+          })
       });
   }, [userDataChat, db()]);
 
@@ -51,12 +61,14 @@ const ChatConversationScreen = ({ route }) => {
 
     setInput("");
   };
-  
+
   return (
     <Layout>
       <HeaderConversation userDataChat={userDataChat} />
       <View style={{ height: "75%", marginTop: 30 }} className="w-full">
-        <FlatList
+        <AutoScrollFlatList
+          showNewItemAlert={false}
+          showScrollToEndIndicator={false}
           data={messages}
           keyExtractor={(item) => item.id}
           renderItem={({ item: message }) =>
