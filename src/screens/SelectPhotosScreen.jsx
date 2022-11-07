@@ -8,6 +8,7 @@ import { currentUser } from "../data/User";
 import { UserController } from "../api/user";
 import { auth, st } from "../../firebase-config";
 import * as ImagePicker from "expo-image-picker";
+import Logo from "../../assets/Universitiers.png";
 
 const SelectPhotosScreen = () => {
   const userController = new UserController();
@@ -70,12 +71,7 @@ const SelectPhotosScreen = () => {
   if (loading) {
     return (
       <Layout>
-        <Image
-          className="h-72 w-72"
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/universitiers-c8b7c.appspot.com/o/Universitiers.png?alt=media&token=11231677-30c5-4c56-8c10-dd0679350c2c",
-          }}
-        />
+        <Image className="h-72 w-72" source={Logo} />
         <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-3xl">
           Universitiers
         </Text>

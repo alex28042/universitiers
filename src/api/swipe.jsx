@@ -2,7 +2,6 @@ import { db } from "../../firebase-config";
 
 export class SwipeController {
   async swipeRight(user, swipedUser) {
-    console.log(user,swipedUser);
     user.swipeRight.push(swipedUser.id);
     await db()
       .doc("users/" + user.id)

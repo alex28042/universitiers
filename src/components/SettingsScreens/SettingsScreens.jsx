@@ -194,8 +194,8 @@ const SettingsScreens = (props) => {
                   backgroundColor: "#9FA0FF",
                   borderTopRightRadius: 0,
                   borderTopLeftRadius: 0,
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
+                  borderBottomLeftRadius: 0,
+                  borderBottomRightRadius: 0,
                 }}
                 className="w-3/4 justify-center h-10"
                 onPress={() => navigation.navigate("ResetPasswordScreen")}
@@ -204,7 +204,25 @@ const SettingsScreens = (props) => {
                   style={{ fontFamily: "Poppins_700Bold" }}
                   className="ml-3"
                 >
-                  Change passworrd
+                  Change password
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#9FA0FF",
+                  borderTopRightRadius: 0,
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                }}
+                className="w-3/4 justify-center h-10"
+                onPress={() => navigation.navigate("EditPhotosScreen")}
+              >
+                <Text
+                  style={{ fontFamily: "Poppins_700Bold" }}
+                  className="ml-3"
+                >
+                  Change photos
                 </Text>
               </TouchableOpacity>
             </View>
@@ -467,11 +485,15 @@ const SettingsScreens = (props) => {
         </View>
       );
     case "Swipe settings":
-      const [valueHideSwipe, setValueHideSwipe] = useState(false);
+      const [valueHideSwipe, setValueHideSwipe] = useState(
+        currentUser.hideFromSwipe
+      );
       const [visiblePreferedGender, setVisiblePreferedGender] = useState(false);
       const [visibleUniversitySearch, setVisibleUniversitySearch] =
         useState(false);
-      const [universitySearch, setUniversitySearch] = useState("");
+      const [universitySearch, setUniversitySearch] = useState(
+        currentUser.swipeUniversity
+      );
 
       return (
         <>
@@ -667,7 +689,7 @@ const SettingsScreens = (props) => {
                   I have a question
                 </Text>
               </TouchableOpacity>
-          
+
               <TouchableOpacity
                 style={{
                   backgroundColor: "#9FA0FF",

@@ -72,7 +72,10 @@ const Tabbar = (props) => {
       );
     case "Chat":
       return (
-        <View style={{backgroundColor: "#9FA0FF"}} className="w-4/5 h-10 rounded-xl flex flex-row items-center justify-between bottom-0 absolute mb-6">
+        <View
+          style={{ backgroundColor: "#9FA0FF" }}
+          className="w-4/5 h-10 rounded-xl flex flex-row items-center justify-between bottom-0 absolute mb-6"
+        >
           <Ionicons
             style={{ marginLeft: 19 }}
             color="black"

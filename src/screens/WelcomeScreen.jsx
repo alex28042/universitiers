@@ -16,6 +16,7 @@ import { currentUser, matches, url } from "../data/User";
 import { MatchController } from "../api/matches";
 import { set } from "react-native-reanimated";
 import { LikesController } from "../api/likes";
+import Logo from '../../assets/Universitiers.png'
 
 const WelcomeScreen = () => {
   const userController = new UserController();
@@ -67,18 +68,15 @@ const WelcomeScreen = () => {
       <Layout>
         <Image
           className="h-72 w-72"
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/universitiers-c8b7c.appspot.com/o/Universitiers.png?alt=media&token=11231677-30c5-4c56-8c10-dd0679350c2c",
-          }}
+          source={Logo}
         />
       </Layout>
     ) : (
       <Layout>
         <Image
           className="h-72 w-72"
-          source={{
-            uri: "https://firebasestorage.googleapis.com/v0/b/universitiers-c8b7c.appspot.com/o/Universitiers.png?alt=media&token=11231677-30c5-4c56-8c10-dd0679350c2c",
-          }}
+          source={Logo}
+
         />
         <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-3xl">
           Universitiers

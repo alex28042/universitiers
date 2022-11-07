@@ -34,15 +34,6 @@ const ChatConversationScreen = ({ route }) => {
             ...doc.data(),
           }))
         );
-        db()
-          .doc("matches/" + userDataChat.idMatch)
-          .update({
-            time: db.FieldValue.serverTimestamp(),
-          });
-          console.log(new Date());
-          matches.map((match) => {
-            if (match.idMatch === userDataChat.idMatch) match.time = new Date()
-          })
       });
   }, [userDataChat, db()]);
 
@@ -56,6 +47,11 @@ const ChatConversationScreen = ({ route }) => {
           displayName: currentUser.name,
           message: input,
           createdAt: db.FieldValue.serverTimestamp(),
+        });
+      db()
+        .doc("matches/" + userDataChat.idMatch)
+        .update({
+          time: db.FieldValue.serverTimestamp(),
         });
     }
 

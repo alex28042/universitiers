@@ -33,6 +33,7 @@ export class UserController {
         likesNotification: user.likesNotification,
         matchesNotifications: user.matchesNotifications,
         swipeUniversity: user.swipeUniversity,
+        hideFromSwipe: user.hideFromSwipe
       })
       .then(() => console.log("user created"));
   }
@@ -65,6 +66,7 @@ export class UserController {
           currentUser.newMessagesNotification = data.newFriendsNotification;
           currentUser.matchesNotifications = data.matchesNotifications;
           currentUser.swipeUniversity = data.swipeUniversity;
+          currentUser.hideFromSwipe = data.hideFromSwipe
         });
       });
   }

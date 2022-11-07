@@ -6,10 +6,29 @@ import { currentUser, matches } from "../data/User";
 import jsort from "jsort";
 
 const ChatDetails = ({ user }) => {
+  let timeVariable = " min";
+  const DateNow = new Date(Date.now());
   const navigation = useNavigation();
   const [lastMessage, setLastMessage] = useState([]);
   const [recieverLastMessage, setRecieverLastMessage] = useState(false);
   const [noMessages, setNoMessages] = useState(false);
+
+  const timeOperators = {
+    inHours: (a, b) => {
+      timeVariable = " h";
+      return parseInt(Math.abs(a.getTime() - b.getTime()) / 36e5);
+    },
+    inDays: (a, b) => {
+      timeVariable = " days";
+      return parseInt(
+        Math.abs((a.getTime() - b.getTime()) / (1000 * 60 * 60 * 24))
+      );
+    },
+    inMinutes: (a, b) => {
+      timeVariable = " min";
+      return parseInt(Math.abs(a.getTime() - b.getTime()) / (60 * 1000));
+    },
+  };
 
   useLayoutEffect(() => {
     db()
@@ -17,7 +36,7 @@ const ChatDetails = ({ user }) => {
       .collection("messages")
       .orderBy("createdAt", "asc")
       .onSnapshot((q) => {
-        q.size > 0 ? setNoMessages(false) : setNoMessages(true)
+        q.size > 0 ? setNoMessages(false) : setNoMessages(true);
         setLastMessage(
           q.docs.map((doc) => ({
             id: doc.id,
@@ -25,7 +44,6 @@ const ChatDetails = ({ user }) => {
           }))
         );
       });
-
   }, [user.idMatch, db]);
 
   useEffect(() => {
@@ -33,6 +51,37 @@ const ChatDetails = ({ user }) => {
       ? setRecieverLastMessage(false)
       : setRecieverLastMessage(true);
   }, [lastMessage]);
+
+  const getTime = () => {
+    return timeOperators.inMinutes(
+      DateNow,
+      new Date(lastMessage[lastMessage.length - 1]?.createdAt?.seconds * 1000)
+    ) > 60
+      ? timeOperators.inHours(
+          DateNow,
+          new Date(
+            lastMessage[lastMessage.length - 1]?.createdAt?.seconds * 1000
+          )
+        ) > 24
+        ? timeOperators.inDays(
+            DateNow,
+            new Date(
+              lastMessage[lastMessage.length - 1]?.createdAt?.seconds * 1000
+            )
+          )
+        : timeOperators.inHours(
+            DateNow,
+            new Date(
+              lastMessage[lastMessage.length - 1]?.createdAt?.seconds * 1000
+            )
+          )
+      : timeOperators.inMinutes(
+          DateNow,
+          new Date(
+            lastMessage[lastMessage.length - 1]?.createdAt?.seconds * 1000
+          )
+        );
+  };
 
   return noMessages ? (
     <></>
@@ -66,14 +115,35 @@ const ChatDetails = ({ user }) => {
             </Text>
           </View>
         </View>
-        <View className="h-full items-center justify-center w-10 mr-2">
+        <View className="h-full items-center justify-center w-15 mr-2">
           {recieverLastMessage ? (
-            <View
-              style={{ backgroundColor: "#9FA0FF" }}
-              className="h-2 w-2 rounded-full"
-            ></View>
+            <View className="flex flex-col">
+              <View
+                style={{ backgroundColor: "#9FA0FF" }}
+                className="h-2 w-2 rounded-full"
+              ></View>
+              <View className="flex flex-row">
+                <Text style={{ fontFamily: "Poppins_500Medium" }}>
+                  {lastMessage[lastMessage.length - 1] == null ? (
+                    <></>
+                  ) : (
+                    getTime()
+                  )}
+                </Text>
+                <Text>{timeVariable}</Text>
+              </View>
+            </View>
           ) : (
-            <></>
+            <View className="flex flex-row">
+              <Text style={{ fontFamily: "Poppins_500Medium" }}>
+                {lastMessage[lastMessage.length - 1] == null ? (
+                  <></>
+                ) : (
+                  getTime()
+                )}
+              </Text>
+              <Text>{timeVariable}</Text>
+            </View>
           )}
         </View>
       </View>

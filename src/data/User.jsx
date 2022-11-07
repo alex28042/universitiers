@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 export const currentUser = {
   id: "",
@@ -22,6 +21,7 @@ export const currentUser = {
   newMessagesNotification: false,
   likesNotification: false,
   matchesNotifications: false,
+  hideFromSwipe: false,
   swipeUniversity: "All",
 };
 
