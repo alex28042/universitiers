@@ -12,6 +12,7 @@ import { currentUser } from "../../data/User";
 import SelectList from "react-native-dropdown-select-list/index";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../../../firebase-config";
+import ProfilePopUp from "./ProfilePopUp";
 
 const ProfileAboutYou = () => {
   const [bio, setBio] = useState("");
@@ -68,7 +69,7 @@ const ProfileAboutYou = () => {
         </Text>
         <Ionicons name="chevron-forward-outline" size={25} />
       </TouchableOpacity>
-      <MatchPopUp visible={bioVisible}>
+      <ProfilePopUp visible={bioVisible}>
         <Ionicons
           name="close-outline"
           size={40}
@@ -80,26 +81,35 @@ const ProfileAboutYou = () => {
         >
           Change Bio
         </Text>
+        <Text style={{ fontFamily: "Poppins_500Medium" }}>
+          {(bio.length == 0 ? currentUser.bio.length : bio.length) + "/" + 80}
+        </Text>
         <TextInput
           onChangeText={(text) => setBio(text)}
           style={{
             backgroundColor: "#9FA0FF",
             fontFamily: "Poppins_700Bold",
           }}
-          className="w-3/4 h-10 rounded-2xl px-2 py-1 mt-10"
+          textAlignVertical={"top"}
+          className="w-3/4 h-24 rounded-2xl px-2 py-1 mt-10"
           placeholder="Bio"
+          multiline
           defaultValue={currentUser.bio}
         />
         <TouchableOpacity
           onPress={() => {
-            if (bio != "") {
+            if (
+              bio != "" && bio.length == 0
+                ? currentUser.bio.length < 80
+                : bio.length < 80
+            ) {
               db()
                 .doc("users/" + currentUser.id)
                 .update({
                   bio: bio,
                 })
                 .then(() => (currentUser.bio = bio));
-            }
+            } 
             setBioVisible(false);
           }}
           style={{ backgroundColor: "#9FA0FF" }}
@@ -107,8 +117,8 @@ const ProfileAboutYou = () => {
         >
           <Text style={{ fontFamily: "Poppins_700Bold" }}>Save</Text>
         </TouchableOpacity>
-      </MatchPopUp>
-      <MatchPopUp visible={swipeSettingsVisible}>
+      </ProfilePopUp>
+      <ProfilePopUp visible={swipeSettingsVisible}>
         <Ionicons
           name="close-outline"
           size={40}
@@ -140,11 +150,15 @@ const ProfileAboutYou = () => {
             data={universitiesList}
           />
         </View>
-
         <TouchableOpacity
           onPress={() => {
             if (university != "") {
-              //update search universiy
+              db()
+                .doc("users/" + currentUser.id)
+                .update({
+                  swipeUniversity: university,
+                })
+                .then(() => (currentUser.swipeUniversity = university));
             }
             setSwipeSettingsVisible(false);
           }}
@@ -153,7 +167,7 @@ const ProfileAboutYou = () => {
         >
           <Text style={{ fontFamily: "Poppins_700Bold" }}>Save</Text>
         </TouchableOpacity>
-      </MatchPopUp>
+      </ProfilePopUp>
     </View>
   );
 };

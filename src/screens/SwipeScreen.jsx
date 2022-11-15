@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Layout from "../components/Layout";
 import SwipeUserCard from "../components/SwipeUserCard";
 import Tabbar from "../navigation/Tabbar";
@@ -13,6 +13,10 @@ import { LikesController } from "../api/likes";
 import { MatchController } from "../api/matches";
 import { SwipeController } from "../api/swipe";
 import MatchPopUp from "../components/Match/MatchPopUp";
+import {
+  getNotificationsPermisions,
+  notificationsToDB,
+} from "../utils/Notifications";
 
 const SwipeScreen = () => {
   const swipeRef = useRef();
@@ -21,13 +25,39 @@ const SwipeScreen = () => {
   const matchController = new MatchController();
   const swipeController = new SwipeController();
   const [matchDetailsPopUp, setMatchDetailsPopUp] = useState(null);
+  const [oldUsersSwipeList, setOldUsersSwipeList] = useState(usersSwipeList);
   const [visible, setVisible] = useState(false);
+
+  if (usersSwipeList != oldUsersSwipeList) {
+    let newUsers = [...usersSwipeList];
+    setOldUsersSwipeList(newUsers);
+  }
+
+  useLayoutEffect(async () => {
+    if (!currentUser.likesPermissions) {
+      const response = await getNotificationsPermisions();
+
+      if (response) {
+        currentUser.likesNotification = true;
+        currentUser.matchesNotifications = true;
+        currentUser.newFriendsNotification = true;
+        currentUser.newMessagesNotification = true;
+
+        notificationsToDB(
+          likesNotification,
+          matchesNotifications,
+          newFriendsNotification,
+          newMessagesNotification
+        );
+      }
+    }
+  }, []);
 
   return (
     <Layout>
       <View className="w-full items-end absolute top-16 flex flex-row justify-center">
         <Text className="text-2xl" style={{ fontFamily: "Poppins_700Bold" }}>
-          Univesitiers
+          Universitiers
         </Text>
         <Ionicons
           name="settings-outline"
@@ -74,7 +104,7 @@ const SwipeScreen = () => {
                 },
               }}
               containerStyle={{ backgroundColor: "transparent" }}
-              cards={usersSwipeList}
+              cards={oldUsersSwipeList}
               onSwipedRight={(i) => {
                 swipeController.swipeRight(currentUser, usersSwipeList[i]);
                 console.log(usersSwipeList);
@@ -160,7 +190,7 @@ const SwipeScreen = () => {
         <View className="mt-5 flex flex-row">
           <Text style={{ fontFamily: "Poppins_500Medium" }}>
             You have a match with
-            {matchDetailsPopUp?.name}
+            {" " + matchDetailsPopUp?.name}
           </Text>
         </View>
         <Image
@@ -183,13 +213,13 @@ const SwipeScreen = () => {
           onPress={() => swipeRef.current.swipeLeft()}
           className="h-16 w-16 bg-white mr-10 items-center justify-center rounded-full"
         >
-          <Ionicons name="close-outline" size={39} />
+          <Ionicons name="close-outline" size={39} color={"#E85F5C"} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => swipeRef.current.swipeRight()}
           className="h-16 w-16 bg-white ml-10 items-center justify-center rounded-full"
         >
-          <Ionicons name="heart-outline" size={39} />
+          <Ionicons name="heart-outline" color={"#9FA0FF"} size={39} />
         </TouchableOpacity>
       </View>
       <Tabbar focus="Swipe" />

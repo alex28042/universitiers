@@ -9,6 +9,7 @@ import { UserController } from "../api/user";
 import { auth, st } from "../../firebase-config";
 import * as ImagePicker from "expo-image-picker";
 import Logo from "../../assets/Universitiers.png";
+import { getGalleryPermissions } from "../utils/Gallery";
 
 const SelectPhotosScreen = () => {
   const userController = new UserController();
@@ -41,6 +42,10 @@ const SelectPhotosScreen = () => {
   };
 
   const pickImage = async () => {
+    const getGalleryPermissions = getGalleryPermissions();
+        
+    if (!currentUser.galleryPermissions) return;
+
     if (photoAddIndex < 6) {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,

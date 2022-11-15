@@ -23,6 +23,12 @@ export const currentUser = {
   matchesNotifications: false,
   hideFromSwipe: false,
   swipeUniversity: "All",
+  createdAt: "",
+  location: "All",
+  deviceLenguague: "en",
+  notificationsPermissions: false,
+  locationPermissions: false,
+  galleryPermissions: false,
 };
 
 export const matches = [];

@@ -3,7 +3,6 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../../firebase-config";
 import { currentUser, matches } from "../data/User";
-import jsort from "jsort";
 
 const ChatDetails = ({ user }) => {
   let timeVariable = " min";
@@ -12,6 +11,7 @@ const ChatDetails = ({ user }) => {
   const [lastMessage, setLastMessage] = useState([]);
   const [recieverLastMessage, setRecieverLastMessage] = useState(false);
   const [noMessages, setNoMessages] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   const timeOperators = {
     inHours: (a, b) => {
@@ -32,7 +32,7 @@ const ChatDetails = ({ user }) => {
 
   useLayoutEffect(() => {
     db()
-      .doc("matches/" + user.idMatch)
+      .doc("matches/" + user?.idMatch)
       .collection("messages")
       .orderBy("createdAt", "asc")
       .onSnapshot((q) => {
@@ -44,7 +44,7 @@ const ChatDetails = ({ user }) => {
           }))
         );
       });
-  }, [user.idMatch, db]);
+  }, [user?.idMatch, db]);
 
   useEffect(() => {
     lastMessage[lastMessage.length - 1]?.userId === currentUser.id
@@ -85,6 +85,8 @@ const ChatDetails = ({ user }) => {
 
   return noMessages ? (
     <></>
+  ) : user == undefined ? (
+    <></>
   ) : (
     <TouchableOpacity
       onPress={() =>
@@ -99,11 +101,11 @@ const ChatDetails = ({ user }) => {
           <View className="h-10 w-10 rounded-full bg-neutral-400">
             <Image
               className="w-full h-full rounded-full"
-              source={{ uri: user.photosURL[0] }}
+              source={{ uri: user?.photosURL[0] }}
             />
           </View>
           <View className="flex flex-col ml-4">
-            <Text style={{ fontFamily: "Poppins_700Bold" }}>{user.name}</Text>
+            <Text style={{ fontFamily: "Poppins_700Bold" }}>{user?.name}</Text>
             <Text
               style={{
                 fontFamily: recieverLastMessage

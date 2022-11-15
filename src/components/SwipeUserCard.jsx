@@ -75,7 +75,7 @@ const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
             </Text>
             {bio ? (
               <Text
-                style={{ fontFamily: "Poppins_500Medium", marginBottom: 10 }}
+                style={{ fontFamily: "Poppins_500Medium", marginBottom: 10, marginRight: 20 }}
               >
                 {bio}
               </Text>
@@ -91,7 +91,7 @@ const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
               })
             }
             size={30}
-            style={{ marginRight: 20, marginBottom: 10 }}
+            style={{ position: 'absolute', right: 20}}
           />
         </View>
       </View>

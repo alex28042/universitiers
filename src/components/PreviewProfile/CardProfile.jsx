@@ -46,7 +46,6 @@ const CardProfile = ({ user }) => {
           }
         ></TouchableOpacity>
       </View>
-
       <Image
         className="w-full absolute h-full rounded-lg"
         source={{ uri: user.photosURL[photoUrlIndex] }}
@@ -62,7 +61,13 @@ const CardProfile = ({ user }) => {
           <Text style={{ fontFamily: "Poppins_500Medium" }}>
             {user.uni !== "" ? user.uni : "No Uni Selected"}
           </Text>
-          <Text style={{ fontFamily: "Poppins_500Medium", marginBottom: 10 }}>
+          <Text
+            style={{
+              fontFamily: "Poppins_500Medium",
+              marginBottom: 10,
+              marginRight: 20,
+            }}
+          >
             {user.bio}
           </Text>
         </View>

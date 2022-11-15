@@ -18,3 +18,5 @@ const CardPhoto = ({ photoURL }) => {
 };
 
 export default CardPhoto;
+
+

@@ -6,10 +6,11 @@ import { db } from "../../firebase-config";
 
 const Chats = () => {
   const [matchesChat, setMatchesChat] = useState([]);
+  const [loading, setLoading] = useState(true);
   useLayoutEffect(() => {
     db()
       .collection("matches/")
-      .orderBy("time", 'desc')
+      .orderBy("time", "desc")
       .onSnapshot((q) => {
         setMatchesChat(
           q.docs.map((d) => {
@@ -27,6 +28,11 @@ const Chats = () => {
       });
   }, [db]);
 
+  useEffect(() => {
+    setLoading(false)
+  }, [matchesChat])
+
+  console.log(matchesChat);
   return (
     <View className="h-full w-full">
       <View className="h-3/4 w-full bottom-0 absolute rounded-t-3xl -z-40 bg-white">
@@ -36,16 +42,22 @@ const Chats = () => {
         >
           Conversations
         </Text>
-        <FlatList 
-          data={matchesChat}
-          keyExtractor={(item) => item.idMatch}
-          renderItem={({item: e}) => (
-            <ChatDetails user={e} key={e.idMatch} />
-          )}
-        />
+        {matchesChat.length == 0 ? (
+          <></>
+        ) : (
+          <FlatList
+            data={matchesChat}
+            keyExtractor={(item, i) => i}
+            renderItem={({ item }) => (
+              <ChatDetails user={item} />
+            )}
+          />
+        )}
       </View>
     </View>
-  );
+  )
+    
+  
 };
 
 export default Chats;

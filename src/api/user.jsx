@@ -33,7 +33,13 @@ export class UserController {
         likesNotification: user.likesNotification,
         matchesNotifications: user.matchesNotifications,
         swipeUniversity: user.swipeUniversity,
-        hideFromSwipe: user.hideFromSwipe
+        hideFromSwipe: user.hideFromSwipe,
+        createdAt: db.FieldValue.serverTimestamp(),
+        location: user.location,
+        deviceLenguague: user.deviceLenguague,
+        notificationsPermissions: user.notificationsPermissions,
+        galleryPermissions: user.galleryPermissions,
+        locationPermissions: user.locationPermissions,
       })
       .then(() => console.log("user created"));
   }
@@ -66,7 +72,13 @@ export class UserController {
           currentUser.newMessagesNotification = data.newFriendsNotification;
           currentUser.matchesNotifications = data.matchesNotifications;
           currentUser.swipeUniversity = data.swipeUniversity;
-          currentUser.hideFromSwipe = data.hideFromSwipe
+          currentUser.hideFromSwipe = data.hideFromSwipe;
+          currentUser.createdAt = data.createdAt;
+          currentUser.location = data.location;
+          currentUser.deviceLenguague = data.deviceLenguague;
+          currentUser.galleryPermissions = data.galleryPermissions;
+          currentUser.locationPermissions = data.locationPermissions;
+          currentUser.notificationsPermissions = data.notificationsPermissions;
         });
       });
   }
@@ -78,13 +90,16 @@ export class UserController {
         q.forEach((d) => {
           const data = d.data();
           if (
-            data.id != currentUser.id &&
+            d.id != currentUser.id &&
             data.gender == currentUser.genderSearch &&
-            !usersSwipeList.includes(data) &&
-            !currentUser.swipeRight.includes(data.id)
+            !usersSwipeList.includes(data)
           )
             usersSwipeList.push({ id: d.id, ...data });
         })
       );
+  }
+
+  async removeUsersSwipeList() {
+    while (usersSwipeList.length != 0) usersSwipeList.pop();
   }
 }

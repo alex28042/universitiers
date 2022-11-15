@@ -74,6 +74,7 @@ const ChatConversationScreen = ({ route }) => {
               <RecieverMessage message={message} key={message.id} />
             )
           }
+          showsVerticalScrollIndicator={false}
         />
       </View>
       <View className="w-full h-20 items-center justify-center bottom-0 absolute flex flex-row">

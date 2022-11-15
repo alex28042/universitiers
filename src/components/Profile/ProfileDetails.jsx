@@ -6,6 +6,13 @@ import { Ionicons } from "@expo/vector-icons";
 
 const ProfileDetails = () => {
   const navigation = useNavigation();
+
+  const getTime = (a, b) => {
+    return parseInt(
+      Math.abs((a.getTime() - b.getTime()) / (1000 * 60 * 60 * 24))
+    );
+  };
+
   return (
     <View className="w-full h-40 mb-5">
       <View className="flex flex-row ml-16">
@@ -18,7 +25,12 @@ const ProfileDetails = () => {
             {currentUser.name}
           </Text>
           <Text className="ml-4" style={{ fontFamily: "Poppins_500Medium" }}>
-            joined 1 day ago
+            joined{" "}
+            {getTime(
+              new Date(currentUser.createdAt.seconds * 1000),
+              new Date(Date.now())
+            )}{" "}
+            days ago
           </Text>
           <View className="flex flex-row mt-3">
             <TouchableOpacity
