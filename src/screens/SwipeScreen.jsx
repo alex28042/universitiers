@@ -17,6 +17,8 @@ import {
   getNotificationsPermisions,
   notificationsToDB,
 } from "../utils/Notifications";
+import { locationToDB } from "../utils/Location";
+import { galleryToDB } from "../utils/Gallery";
 
 const SwipeScreen = () => {
   const swipeRef = useRef();
@@ -34,7 +36,7 @@ const SwipeScreen = () => {
   }
 
   useLayoutEffect(async () => {
-    if (!currentUser.likesPermissions) {
+    if (!currentUser.notificationsPermissions) {
       const response = await getNotificationsPermisions();
 
       if (response) {
@@ -50,6 +52,9 @@ const SwipeScreen = () => {
           newMessagesNotification
         );
       }
+      if (currentUser.locationPermissions)
+        locationToDB(currentUser.location, currentUser.locationPrivacy);
+      if (currentUser.galleryPermissions) galleryToDB();
     }
   }, []);
 

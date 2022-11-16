@@ -20,7 +20,7 @@ const SelectPhotosScreen = () => {
   const [photoAddIndex, setPhotoAddIndex] = useState(0);
 
   const createUser = () => {
-    if (currentUser.email != "" && currentUser.password != "") {
+    if (currentUser.email != "" && currentUser.password != "" && photoAddIndex != 0) {
       auth
         .createUserWithEmailAndPassword(currentUser.email, currentUser.password)
         .then(() => {
@@ -42,9 +42,9 @@ const SelectPhotosScreen = () => {
   };
 
   const pickImage = async () => {
-    const getGalleryPermissions = getGalleryPermissions();
-        
-    if (!currentUser.galleryPermissions) return;
+    const getGalleryPermissions = await getGalleryPermissions();
+
+    if (!getGalleryPermissions) return;
 
     if (photoAddIndex < 6) {
       let result = await ImagePicker.launchImageLibraryAsync({
