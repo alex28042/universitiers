@@ -15,14 +15,17 @@ const UnivesitySelectScreen = () => {
   const text = "How old are you? :)";
   const [errorUniversity, setErrorUniversity] = useState(false);
 
-  useLayoutEffect(async () => {
-    const response = await getCurrentLocation();
+  useLayoutEffect(() => {
+    const loadLocation = async () => {
+      const response = await getCurrentLocation();
 
-    if (response.status) {
-      currentUser.locationPrivacy = true;
-      currentUser.location = response.location;
-      locationToDB(currentUser.location, currentUser.locationPrivacy);
-    }
+      if (response.status) {
+        currentUser.locationPrivacy = true;
+        currentUser.location = response.location;
+      }
+    };
+
+    loadLocation()
   }, []);
 
   const handleSelectUni = () => {

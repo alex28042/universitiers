@@ -46,16 +46,18 @@ const SwipeScreen = () => {
         currentUser.newMessagesNotification = true;
 
         notificationsToDB(
-          likesNotification,
-          matchesNotifications,
-          newFriendsNotification,
-          newMessagesNotification
+          currentUser.likesNotification,
+          currentUser.matchesNotifications,
+          currentUser.newFriendsNotification,
+          currentUser.newMessagesNotification
         );
       }
-      if (currentUser.locationPermissions)
-        locationToDB(currentUser.location, currentUser.locationPrivacy);
-      if (currentUser.galleryPermissions) galleryToDB();
     }
+
+    if (currentUser.locationPermissions)
+      locationToDB(currentUser.location, currentUser.locationPrivacy);
+    if (currentUser.galleryPermissions)
+      galleryToDB(currentUser.galleryPermissions);
   }, []);
 
   return (

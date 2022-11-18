@@ -20,21 +20,25 @@ const SelectPhotosScreen = () => {
   const [photoAddIndex, setPhotoAddIndex] = useState(0);
 
   const createUser = () => {
-    if (currentUser.email != "" && currentUser.password != "" && photoAddIndex != 0) {
+    if (
+      currentUser.email != "" &&
+      currentUser.password != "" &&
+      photoAddIndex != 0
+    ) {
       auth
         .createUserWithEmailAndPassword(currentUser.email, currentUser.password)
         .then(() => {
           uploadPhotos().then(() => {
-            setTimeout(() => {
-              userController.createUser(currentUser).then(() => {
+            userController.createUser(currentUser).then(() => {
+              setTimeout(() => {
                 setLoading(true);
                 userController.getUsers().then(() => {
                   setTimeout(() => {
                     navigation.navigate("LoadScreen");
                   }, 100);
                 });
-              });
-            }, 1000);
+              }, 1000);
+            });
           });
         })
         .catch(() => console.log("error"));

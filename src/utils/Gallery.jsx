@@ -20,10 +20,10 @@ export const getGalleryPermissions = async () => {
   return response;
 };
 
-export const galleryToDB = () => {
+export const galleryToDB = (galleryPermissions) => {
   db()
     .doc("users/" + currentUser.id)
     .update({
-      galleryPermissions: true
+      galleryPermissions: galleryPermissions
     });
 };

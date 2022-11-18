@@ -24,7 +24,7 @@ import { set } from "react-native-reanimated";
 import { LikesController } from "../api/likes";
 import Logo from "../../assets/Universitiers.png";
 import * as Localization from "expo-localization";
-import { getCurrentLocation } from "../utils/Location";
+import { getLenguagueDevice } from "../utils/Location";
 
 const WelcomeScreen = () => {
   const userController = new UserController();
@@ -39,7 +39,7 @@ const WelcomeScreen = () => {
   });
 
   useLayoutEffect(() => {
-    currentUser.deviceLenguague = Localization.locale;
+    getLenguagueDevice()
   }, []);
 
   const getDetailsUser = () => {
@@ -73,7 +73,6 @@ const WelcomeScreen = () => {
             setLoading(false);
           });
       } else {
-        const response = await getCurrentLocation();
         setLoading(false);
       }
     };
