@@ -14,6 +14,7 @@ export class MatchController {
     db()
       .collection("matches/")
       .where("usersMatched", "array-contains", currentUser.id)
+      .where('blocked', '==', false)
       .get()
       .then((q) => {
         q.forEach((d) => {

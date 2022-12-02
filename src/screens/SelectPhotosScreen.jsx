@@ -29,16 +29,18 @@ const SelectPhotosScreen = () => {
         .createUserWithEmailAndPassword(currentUser.email, currentUser.password)
         .then(() => {
           uploadPhotos().then(() => {
-            userController.createUser(currentUser).then(() => {
-              setTimeout(() => {
-                setLoading(true);
-                userController.getUsers().then(() => {
-                  setTimeout(() => {
-                    navigation.navigate("LoadScreen");
-                  }, 100);
+            setTimeout(() => {
+              userController.createUser(currentUser).then(() => {
+                userController.getCurrentUser(currentUser.email).then(() => {
+                  setLoading(true);
+                  userController.getUsers().then(() => {
+                    setTimeout(() => {
+                      navigation.navigate("LoadScreen");
+                    }, 100);
+                  });
                 });
-              }, 1000);
-            });
+              });
+            }, 1000);
           });
         })
         .catch(() => console.log("error"));

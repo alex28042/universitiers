@@ -33,6 +33,7 @@ const LoginScreen = () => {
   const [attempUserSwipeList, setAttempUserSwipeList] = useState(0)
 
   const handleLogIn = (email, password) => {
+    userController.removeUsersSwipeList()
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
