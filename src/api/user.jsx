@@ -40,6 +40,7 @@ export class UserController {
         notificationsPermissions: user.notificationsPermissions,
         galleryPermissions: user.galleryPermissions,
         locationPermissions: user.locationPermissions,
+        subscribed: user.subscribed,
       })
       .then(() => console.log("user created"));
   }
@@ -79,6 +80,7 @@ export class UserController {
           currentUser.galleryPermissions = data.galleryPermissions;
           currentUser.locationPermissions = data.locationPermissions;
           currentUser.notificationsPermissions = data.notificationsPermissions;
+          currentUser.subscribed = data.subscribed;
         });
       });
   }

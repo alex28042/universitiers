@@ -23,14 +23,14 @@ const CardProfile = ({ user }) => {
               style={{
                 backgroundColor: photoUrlIndex == i ? "black" : "grey",
               }}
-              className="h-1 bg-white ml-1 rounded-full z-50 w-10"
+              className="h-1 bg-white ml-1 rounded-full z-40 w-10"
             ></View>
           ))}
         </View>
       </View>
       <View className=" w-full h-full flex flex-row">
         <TouchableOpacity
-          className="w-1/2 h-3/4 z-50"
+          className="w-1/2 h-3/4 z-50 bg-transparent"
           onPress={() =>
             photoUrlIndex - 1 < 0
               ? setPhotoUrlIndex(photoUrlIndex)
@@ -38,7 +38,7 @@ const CardProfile = ({ user }) => {
           }
         ></TouchableOpacity>
         <TouchableOpacity
-          className="w-1/2 z-50 h-3/4"
+          className="w-1/2 z-50 h-3/4 bg-transparent"
           onPress={() =>
             photoUrlIndex + 1 > user.photosURL.length - 1
               ? setPhotoUrlIndex(photoUrlIndex)
@@ -47,7 +47,7 @@ const CardProfile = ({ user }) => {
         ></TouchableOpacity>
       </View>
       <Image
-        className="w-full absolute h-full rounded-lg"
+        className="w-full absolute h-full rounded-lg -z-50"
         source={{ uri: user.photosURL[photoUrlIndex] }}
       />
       <View className="bottom-0 absolute self-start w-full justify-between flex flex-row">

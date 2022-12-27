@@ -16,6 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { db } from "../../firebase-config";
 import { currentUser, matches } from "../data/User";
 import { AutoScrollFlatList } from "react-native-autoscroll-flatlist";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
 const ChatConversationScreen = ({ route }) => {
   const { userDataChat } = route.params;
@@ -58,7 +59,9 @@ const ChatConversationScreen = ({ route }) => {
     setInput("");
   };
 
-  return (
+  return currentUser.id == "" ? (
+    <LoadingScreen />
+  ) : (
     <Layout>
       <HeaderConversation userDataChat={userDataChat} />
       <View style={{ height: "75%", marginTop: 30 }} className="w-full">

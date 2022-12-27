@@ -4,12 +4,16 @@ import Layout from "../components/Layout";
 import SettingsScreens from "../components/SettingsScreens/SettingsScreens";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import { currentUser } from "../data/User";
 
 const SettingsOptionsScreen = ({ route }) => {
   const { name } = route.params;
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  return (
+  return currentUser.id == "" ? (
+    <LoadingScreen />
+  ) : (
     <Layout>
       <Ionicons
         name="chevron-back-outline"

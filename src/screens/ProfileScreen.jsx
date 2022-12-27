@@ -5,9 +5,14 @@ import ProfileDetails from "../components/Profile/ProfileDetails";
 import ProfilePhotos from "../components/Profile/ProfilePhotos";
 import ProfileAboutYou from "../components/Profile/ProfileAboutYou";
 import Tabbar from "../navigation/Tabbar";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import { currentUser } from "../data/User";
 
 const ProfileScreen = () => {
   return (
+    currentUser.id == "" ? 
+    <LoadingScreen />
+    :
     <Layout>
       <Text
         className="text-2xl mb-10"

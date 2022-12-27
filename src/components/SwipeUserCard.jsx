@@ -26,13 +26,14 @@ const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
     <TailwindProvider>
       <View className="h-3/5 w-3/4 rounded-lg bg-white items-center">
         <View className="flex flex-row h-full w-full">
-          <View className="w-full top-1 items-center z-50 absolute">
+          <View className="w-full top-1 items-center z-40 absolute">
             <View className="flex flex-row">
               {user.photosURL.map((e, i) => (
                 <View
                   key={i}
                   style={{
                     backgroundColor: photoUrlIndex == i ? "black" : "grey",
+                    zIndex: 500,
                   }}
                   className="h-1 bg-white ml-1 rounded-full z-50 w-10"
                 ></View>
@@ -57,7 +58,7 @@ const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
           ></TouchableOpacity>
         </View>
         <Image
-          className="w-full absolute h-full rounded-lg"
+          className="w-full absolute h-full -z-50 rounded-lg"
           source={{ uri: user.photosURL[photoUrlIndex] }}
         ></Image>
         <View className="bottom-0 absolute self-start w-full justify-between flex flex-row">

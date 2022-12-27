@@ -12,7 +12,7 @@ export const getCurrentLocation = async () => {
 
   Location.requestBackgroundPermissionsAsync().then((response) => {
     const r = { status: false, location: null };
-    console.log(response);
+    
     if (response.status != "denied") {
       const { location } = Localization.region;
       const region = location;

@@ -14,6 +14,8 @@
     "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
+    "@stripe/stripe-js": "^1.46.0",
+    "@stripe/stripe-react-native": "^0.22.1",
     "chalk": "^5.1.2",
     "each-async": "^2.0.0",
     "expo": "~46.0.13",
@@ -43,7 +45,8 @@
     "react-native-svg": "12.3.0",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
-    "tailwindcss-react-native": "^1.7.10"
+    "tailwindcss-react-native": "^1.7.10",
+    "tipsi-stripe": "^10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

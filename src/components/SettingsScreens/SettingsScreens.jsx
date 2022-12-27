@@ -986,6 +986,8 @@ const SettingsScreens = (props) => {
             </TouchableOpacity>
           </ProfilePopUp>
           <ProfilePopUp visible={visibleUniversitySearch}>
+          {currentUser.subscribed ? (
+          <>
             <Ionicons
               name="close-outline"
               size={40}
@@ -995,9 +997,9 @@ const SettingsScreens = (props) => {
               style={{ fontFamily: "Poppins_700Bold" }}
               className="text-lg mt-5"
             >
-              Swipe university Settings
+              Swipe settings
             </Text>
-            <View className="w-3/4 h-10 mt-10">
+            <View className="w-4/5 h-10 mt-10">
               <SelectList
                 placeholder="Select University"
                 searchPlaceholder="University"
@@ -1013,19 +1015,58 @@ const SettingsScreens = (props) => {
                 }}
                 inputStyles={{ fontFamily: "Poppins_500Medium" }}
                 dropdownItemStyles={{ fontFamily: "Poppins_500Medium" }}
-                setSelected={setUniversitySearch}
-                data={universitiesSearchList}
+                setSelected={setUniversity}
+                data={universitiesList}
               />
             </View>
             <TouchableOpacity
               onPress={() => {
-                setVisibleUniversitySearch(false);
+                if (university != "") {
+                  db()
+                    .doc("users/" + currentUser.id)
+                    .update({
+                      swipeUniversity: university,
+                    })
+                    .then(() => (currentUser.swipeUniversity = university));
+                }
+                setSwipeSettingsVisible(false);
               }}
               style={{ backgroundColor: "#9FA0FF" }}
               className="bottom-5 absolute w-40 items-center justify-center h-14 rounded-2xl"
             >
               <Text style={{ fontFamily: "Poppins_700Bold" }}>Save</Text>
             </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <Ionicons
+              name="close-outline"
+              size={40}
+              onPress={() => setVisibleUniversitySearch(false)}
+            />
+            <Text
+              style={{ fontFamily: "Poppins_700Bold" }}
+              className="text-lg mt-5"
+            >
+              Swipe settings
+            </Text>
+            <Text
+              style={{ fontFamily: "Poppins_700Bold" }}
+              className="text-md mt-40"
+            >
+              You're not subscribed to Universitiers premium!
+            </Text>
+            <TouchableOpacity
+              onPress={() => {
+              
+              }}
+              style={{ backgroundColor: "#9FA0FF" }}
+              className="bottom-5 absolute w-52 items-center justify-center h-14 rounded-2xl"
+            >
+              <Text style={{ fontFamily: "Poppins_700Bold" }}>Subscribe to Premium</Text>
+            </TouchableOpacity>
+          </>
+        )}
           </ProfilePopUp>
         </>
       );

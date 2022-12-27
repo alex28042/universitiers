@@ -19,6 +19,7 @@ import {
 } from "../utils/Notifications";
 import { locationToDB } from "../utils/Location";
 import { galleryToDB } from "../utils/Gallery";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
 const SwipeScreen = () => {
   const swipeRef = useRef();
@@ -60,7 +61,9 @@ const SwipeScreen = () => {
       galleryToDB(currentUser.galleryPermissions);
   }, []);
 
-  return (
+  return currentUser.id == "" ? (
+    <LoadingScreen />
+  ) : (
     <Layout>
       <View className="w-full items-end absolute top-16 flex flex-row justify-center">
         <Text className="text-2xl" style={{ fontFamily: "Poppins_700Bold" }}>

@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import Layout from "../components/Layout";
 import CardPhotoEdit from "../components/EditPhotos/CardPhotoEdit";
 import { FlatList } from "react-native-gesture-handler";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
 const EditPhotosScreen = () => {
   const navigation = useNavigation();
@@ -72,7 +73,9 @@ const EditPhotosScreen = () => {
     currentUser.photosURL.push(url);
   };
 
-  return (
+  return currentUser.id == "" ? (
+    <LoadingScreen />
+  ) : (
     <Layout>
       <Ionicons
         name="chevron-back-outline"

@@ -20,6 +20,7 @@ import LoadScreen from "../screens/LoadScreen";
 import SelectGenderScreen from "../screens/SelectGenderScreen";
 import ResetPasswordScreen from "../screens/ResetPasswordScreen";
 import EditPhotosScreen from "../screens/EditPhotosScreen";
+import PaymentScreen from "../screens/PaymentScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -112,9 +113,14 @@ const Navigation = () => {
           component={ResetPasswordScreen}
           options={{ headerShown: false, headerBackVisible: false }}
         />
-            <Stack.Screen
+        <Stack.Screen
           name="EditPhotosScreen"
           component={EditPhotosScreen}
+          options={{ headerShown: false, headerBackVisible: false }}
+        />
+        <Stack.Screen
+          name="PaymentScreen"
+          component={PaymentScreen}
           options={{ headerShown: false, headerBackVisible: false }}
         />
       </Stack.Navigator>

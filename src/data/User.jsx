@@ -29,6 +29,7 @@ export const currentUser = {
   notificationsPermissions: false,
   locationPermissions: false,
   galleryPermissions: false,
+  subscribed: true,
 };
 
 export const matches = [];
