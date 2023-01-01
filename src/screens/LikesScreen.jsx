@@ -17,7 +17,14 @@ import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
 const LikesScreen = () => {
   const [likesWithoutCountMatches, setLikesWithoutCountMatches] = useState([]);
+  const [viewProfileLike, setViewProfileLike] = useState(false);
+  const [indexUserLike, setIndexUserLike] = useState(0);
   const navigation = useNavigation();
+
+  const randomIndexLike = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+
   useEffect(() => {
     likes.map((like, i) => {
       if (
@@ -31,53 +38,65 @@ const LikesScreen = () => {
   return currentUser.id == "" ? (
     <LoadingScreen />
   ) : (
-    <TailwindProvider>
-      <ScrollView
-        style={{ backgroundColor: "#DAB6FC" }}
-        contentContainerStyle={{ alignItems: "center", flex: 1 }}
-        showsVerticalScrollIndicator={false}
+    <Layout>
+      <Text
+        className="mb-8 text-2xl mt-40"
+        style={{ fontFamily: "Poppins_700Bold" }}
       >
-        <Text
-          className="mb-8 text-2xl mt-40"
-          style={{ fontFamily: "Poppins_700Bold" }}
-        >
-          People who likes you!
-        </Text>
-        {currentUser.subscribed ? (
-          <></>
-        ) : (
-          <>
-            <Text
-              className="mb-8 text-md mt-5"
-              style={{ fontFamily: "Poppins_700Bold" }}
-            >
-              Subscribe to see the profile who likes you!
+        People who likes you!
+      </Text>
+      {viewProfileLike ? (
+        <>
+          <TouchableOpacity
+            onPress={() => {
+              setIndexUserLike(
+                randomIndexLike(0, likesWithoutCountMatches.length)
+              );
+              console.log(indexUserLike);
+            }}
+            style={{ backgroundColor: "#9FA0FF" }}
+            className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"
+          >
+            <Text style={{ fontFamily: "Poppins_700Bold" }}>
+              See who likes you
             </Text>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("PaymentScreen");
-              }}
-              style={{ backgroundColor: "#9FA0FF" }}
-              className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"
-            >
-              <Text style={{ fontFamily: "Poppins_700Bold" }}>
-                Subscribe to Premium
-              </Text>
-            </TouchableOpacity>
-          </>
-        )}
-        {likesWithoutCountMatches.length == 0 ? (
-          <Text style={{ fontFamily: "Poppins_500Medium" }}>
-            {"No likes :/ keep swiping"}
-          </Text>
-        ) : (
-          likesWithoutCountMatches.map((user) => (
-            <LikesUserCard user={user} key={user.id} />
-          ))
-        )}
-        <Tabbar focus="Likes" />
-      </ScrollView>
-    </TailwindProvider>
+          </TouchableOpacity>
+        </>
+      ) : (
+        <>
+          <TouchableOpacity
+            onPress={() => {
+              setViewProfileLike(true);
+              setIndexUserLike(
+                randomIndexLike(0, likesWithoutCountMatches.length)
+              );
+            }}
+            style={{ backgroundColor: "#9FA0FF" }}
+            className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"
+          >
+            <Text style={{ fontFamily: "Poppins_700Bold" }}>
+              View a profile who likes you!
+            </Text>
+          </TouchableOpacity>
+        </>
+      )}
+      {likesWithoutCountMatches.length == 0 ? (
+        <Text style={{ fontFamily: "Poppins_500Medium" }}>
+          {"No likes :/ keep swiping"}
+        </Text>
+      ) : viewProfileLike ? (
+        <LikesUserCard
+          user={likesWithoutCountMatches[indexUserLike]}
+          key={likesWithoutCountMatches[indexUserLike].id}
+        />
+      ) : (
+        <Text style={{ fontFamily: "Poppins_500Medium" }}>
+          Press to see profiles who likes you!
+        </Text>
+      )}
+      <View className="h-64"></View>
+      <Tabbar focus="Likes" />
+    </Layout>
   );
 };
 

@@ -19,7 +19,7 @@ const ButtonCustom = (props) => {
         props.to ? navigation.navigate(props.to) : null;
       }}
     >
-      <Text style={{ fontFamily: "Poppins_500Medium" }}>{props.text}</Text>
+      <Text style={{ fontFamily: "Poppins_700Bold" }}>{props.text}</Text>
     </TouchableOpacity>
   );
 };

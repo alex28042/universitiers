@@ -26,10 +26,13 @@ import Logo from "../../assets/Universitiers.png";
 import * as Localization from "expo-localization";
 import { getLenguagueDevice } from "../utils/Location";
 
+
+
 const WelcomeScreen = () => {
   const userController = new UserController();
   const matchController = new MatchController();
   const likesController = new LikesController();
+  
   const [Url, setUrl] = useState("");
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
@@ -39,10 +42,13 @@ const WelcomeScreen = () => {
   });
 
   useLayoutEffect(() => {
-    getLenguagueDevice()
+    getLenguagueDevice();
   }, []);
 
-  const getDetailsUser = () => {
+  const getDetailsUser = async() => {
+    const userEmail = await storage.get("email");
+    const userPassword = await storage.get("password");
+
     userController.getCurrentUser(userEmail).then(() => {
       if (usersSwipeList.length == 0) {
         userController.getUsers().then(async () => {

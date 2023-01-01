@@ -319,13 +319,17 @@ const ProfileAboutYou = () => {
             </View>
             <TouchableOpacity
               onPress={() => {
-                if (university != "") {
+                if (
+                  university != "" &&
+                  currentUser.swipeUniversity != university
+                ) {
                   db()
                     .doc("users/" + currentUser.id)
                     .update({
                       swipeUniversity: university,
                     })
-                    .then(() => (currentUser.swipeUniversity = university));
+                    .then(() => (currentUser.swipeUniversity = university))
+                    .then(() => console.log("Anuncio"));
                 }
                 setSwipeSettingsVisible(false);
               }}
@@ -355,13 +359,13 @@ const ProfileAboutYou = () => {
               You're not subscribed to Universitiers premium!
             </Text>
             <TouchableOpacity
-              onPress={() => {
-              
-              }}
+              onPress={() => {}}
               style={{ backgroundColor: "#9FA0FF" }}
               className="bottom-5 absolute w-52 items-center justify-center h-14 rounded-2xl"
             >
-              <Text style={{ fontFamily: "Poppins_700Bold" }}>Subscribe to Premium</Text>
+              <Text style={{ fontFamily: "Poppins_700Bold" }}>
+                Subscribe to Premium
+              </Text>
             </TouchableOpacity>
           </>
         )}

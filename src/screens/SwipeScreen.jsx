@@ -20,7 +20,19 @@ import {
 import { locationToDB } from "../utils/Location";
 import { galleryToDB } from "../utils/Gallery";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import {
+  AdEventType,
+  InterstitialAd,
+  TestIds,
+} from "react-native-google-mobile-ads";
 
+const adUnitId = "ca-app-pub-2290135120212695/9641138022";
+/*
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  requestNonPersonalizedAdsOnly: true,
+  keywords: ["finance", "bitcoin"],
+});
+*/
 const SwipeScreen = () => {
   const swipeRef = useRef();
   const navigation = useNavigation();
@@ -30,6 +42,8 @@ const SwipeScreen = () => {
   const [matchDetailsPopUp, setMatchDetailsPopUp] = useState(null);
   const [oldUsersSwipeList, setOldUsersSwipeList] = useState(usersSwipeList);
   const [visible, setVisible] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [countOfLikes, setCountOfLikes] = useState(0);
 
   if (usersSwipeList != oldUsersSwipeList) {
     let newUsers = [...usersSwipeList];
@@ -61,6 +75,21 @@ const SwipeScreen = () => {
       galleryToDB(currentUser.galleryPermissions);
   }, []);
 
+  /*useEffect(() => {
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.LOADED,
+      () => {
+        setLoaded(true);
+      }
+    );
+
+    // Start loading the interstitial straight away
+    interstitial.load();
+
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, []);
+  */
   return currentUser.id == "" ? (
     <LoadingScreen />
   ) : (
@@ -69,6 +98,7 @@ const SwipeScreen = () => {
         <Text className="text-2xl" style={{ fontFamily: "Poppins_700Bold" }}>
           Universitiers
         </Text>
+
         <Ionicons
           name="settings-outline"
           onPress={() => navigation.navigate("SettingsScreen")}
@@ -116,8 +146,10 @@ const SwipeScreen = () => {
               containerStyle={{ backgroundColor: "transparent" }}
               cards={oldUsersSwipeList}
               onSwipedRight={(i) => {
+                setCountOfLikes(countOfLikes + 1);
+
                 swipeController.swipeRight(currentUser, usersSwipeList[i]);
-                console.log(usersSwipeList);
+                
                 db()
                   .doc("users/" + usersSwipeList[i].id)
                   .get()
