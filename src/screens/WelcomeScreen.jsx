@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Image,
   DeviceEventEmitter,
+  Platform,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import Layout from "../components/Layout";
@@ -26,13 +27,11 @@ import Logo from "../../assets/Universitiers.png";
 import * as Localization from "expo-localization";
 import { getLenguagueDevice } from "../utils/Location";
 
-
-
 const WelcomeScreen = () => {
   const userController = new UserController();
   const matchController = new MatchController();
   const likesController = new LikesController();
-  
+
   const [Url, setUrl] = useState("");
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
@@ -41,15 +40,8 @@ const WelcomeScreen = () => {
     Poppins_700Bold,
   });
 
-  useLayoutEffect(() => {
-    getLenguagueDevice();
-  }, []);
-
-  const getDetailsUser = async() => {
-    const userEmail = await storage.get("email");
-    const userPassword = await storage.get("password");
-
-    userController.getCurrentUser(userEmail).then(() => {
+  const getDetailsUser = async (email) => {
+    userController.getCurrentUser(email).then(() => {
       if (usersSwipeList.length == 0) {
         userController.getUsers().then(async () => {
           likesController.getLikesCurrentUser().then(() => {
@@ -66,13 +58,14 @@ const WelcomeScreen = () => {
 
   useEffect(() => {
     const userLogged = async () => {
+      getLenguagueDevice();
       const userEmail = await storage.get("email");
       const userPassword = await storage.get("password");
 
       if (userEmail !== null && userPassword !== null) {
         await auth
           .signInWithEmailAndPassword(userEmail, userPassword)
-          .then(() => getDetailsUser())
+          .then(() => getDetailsUser(userEmail))
           .catch(() => {
             storage.remove("email");
             storage.remove("password");

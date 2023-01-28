@@ -14,11 +14,20 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import Navigation from "../navigation/Navigation";
 import { useNavigation } from "@react-navigation/native";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import {
+  AppOpenAd,
+  InterstitialAd,
+  RewardedAd,
+  BannerAd,
+  TestIds,
+  BannerAdSize
+} from "react-native-google-mobile-ads";
 
 const LikesScreen = () => {
   const [likesWithoutCountMatches, setLikesWithoutCountMatches] = useState([]);
   const [viewProfileLike, setViewProfileLike] = useState(false);
   const [indexUserLike, setIndexUserLike] = useState(0);
+  const [indexUserLikeUsed, setIndexUserLikeUsed] = useState([]);
   const navigation = useNavigation();
 
   const randomIndexLike = (min, max) => {
@@ -45,13 +54,28 @@ const LikesScreen = () => {
       >
         People who likes you!
       </Text>
+      <BannerAd
+        unitId={TestIds.BANNER}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
+
       {viewProfileLike ? (
         <>
           <TouchableOpacity
             onPress={() => {
-              setIndexUserLike(
-                randomIndexLike(0, likesWithoutCountMatches.length)
-              );
+              let random = randomIndexLike(0, likesWithoutCountMatches.length);
+
+              if (
+                !indexUserLikeUsed.includes(random) &&
+                indexUserLikeUsed.length < 2
+              ) {
+                indexUserLikeUsed.push(random);
+                setIndexUserLike(random);
+              }
+
               console.log(indexUserLike);
             }}
             style={{ backgroundColor: "#9FA0FF" }}
@@ -66,10 +90,17 @@ const LikesScreen = () => {
         <>
           <TouchableOpacity
             onPress={() => {
+              let random = randomIndexLike(0, likesWithoutCountMatches.length);
+              console.log(random);
               setViewProfileLike(true);
-              setIndexUserLike(
-                randomIndexLike(0, likesWithoutCountMatches.length)
-              );
+
+              if (
+                !indexUserLikeUsed.includes(random) &&
+                indexUserLikeUsed.length < 2
+              ) {
+                indexUserLikeUsed.push(random);
+                setIndexUserLike(random);
+              }
             }}
             style={{ backgroundColor: "#9FA0FF" }}
             className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"

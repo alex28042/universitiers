@@ -5,7 +5,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { currentUser, User } from "../data/User";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
-import { createCheckout } from "../utils/CheckoutStripe";
 
 const PaymentScreen = () => {
   const navigation = useNavigation();
@@ -26,7 +25,6 @@ const PaymentScreen = () => {
       <View className="h-56"></View>
       <TouchableOpacity
         onPress={() => {
-          createCheckout(currentUser.id);
         }}
         style={{ backgroundColor: "#9FA0FF" }}
         className="bottom-5 absolute w-52 items-center justify-center h-14 rounded-2xl"

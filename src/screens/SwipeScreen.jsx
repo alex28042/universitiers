@@ -20,19 +20,7 @@ import {
 import { locationToDB } from "../utils/Location";
 import { galleryToDB } from "../utils/Gallery";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
-import {
-  AdEventType,
-  InterstitialAd,
-  TestIds,
-} from "react-native-google-mobile-ads";
 
-const adUnitId = "ca-app-pub-2290135120212695/9641138022";
-/*
-const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-  keywords: ["finance", "bitcoin"],
-});
-*/
 const SwipeScreen = () => {
   const swipeRef = useRef();
   const navigation = useNavigation();
@@ -50,46 +38,35 @@ const SwipeScreen = () => {
     setOldUsersSwipeList(newUsers);
   }
 
-  useLayoutEffect(async () => {
-    if (!currentUser.notificationsPermissions) {
-      const response = await getNotificationsPermisions();
+  useLayoutEffect(() => {
+    const permissionsFunc = async () => {
+      if (!currentUser.notificationsPermissions) {
+        const response = await getNotificationsPermisions();
 
-      if (response) {
-        currentUser.likesNotification = true;
-        currentUser.matchesNotifications = true;
-        currentUser.newFriendsNotification = true;
-        currentUser.newMessagesNotification = true;
+        if (response) {
+          currentUser.likesNotification = true;
+          currentUser.matchesNotifications = true;
+          currentUser.newFriendsNotification = true;
+          currentUser.newMessagesNotification = true;
 
-        notificationsToDB(
-          currentUser.likesNotification,
-          currentUser.matchesNotifications,
-          currentUser.newFriendsNotification,
-          currentUser.newMessagesNotification
-        );
+          notificationsToDB(
+            currentUser.likesNotification,
+            currentUser.matchesNotifications,
+            currentUser.newFriendsNotification,
+            currentUser.newMessagesNotification
+          );
+        }
       }
-    }
 
-    if (currentUser.locationPermissions)
-      locationToDB(currentUser.location, currentUser.locationPrivacy);
-    if (currentUser.galleryPermissions)
-      galleryToDB(currentUser.galleryPermissions);
+      if (currentUser.locationPermissions)
+        locationToDB(currentUser.location, currentUser.locationPrivacy);
+      if (currentUser.galleryPermissions)
+        galleryToDB(currentUser.galleryPermissions);
+    };
+
+    permissionsFunc();
   }, []);
 
-  /*useEffect(() => {
-    const unsubscribe = interstitial.addAdEventListener(
-      AdEventType.LOADED,
-      () => {
-        setLoaded(true);
-      }
-    );
-
-    // Start loading the interstitial straight away
-    interstitial.load();
-
-    // Unsubscribe from events on unmount
-    return unsubscribe;
-  }, []);
-  */
   return currentUser.id == "" ? (
     <LoadingScreen />
   ) : (
@@ -98,7 +75,6 @@ const SwipeScreen = () => {
         <Text className="text-2xl" style={{ fontFamily: "Poppins_700Bold" }}>
           Universitiers
         </Text>
-
         <Ionicons
           name="settings-outline"
           onPress={() => navigation.navigate("SettingsScreen")}
@@ -149,7 +125,7 @@ const SwipeScreen = () => {
                 setCountOfLikes(countOfLikes + 1);
 
                 swipeController.swipeRight(currentUser, usersSwipeList[i]);
-                
+
                 db()
                   .doc("users/" + usersSwipeList[i].id)
                   .get()
