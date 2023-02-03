@@ -19,7 +19,7 @@ import { UserController } from "../api/user";
 import { MatchController } from "../api/matches";
 import { LikesController } from "../api/likes";
 import { usersSwipeList } from "../data/UsersSwipeList";
-import Logo from '../../assets/Universitiers.png'
+import Logo from "../../assets/Universitiers.png";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -30,10 +30,11 @@ const LoginScreen = () => {
   const likesController = new LikesController();
   const matchController = new MatchController();
   const [loadin, setLoadin] = useState(false);
-  const [attempUserSwipeList, setAttempUserSwipeList] = useState(0)
+  const [attempUserSwipeList, setAttempUserSwipeList] = useState(0);
+  const [buttonLoginPressed, setButtonLoginPressed] = useState(false);
 
   const handleLogIn = (email, password) => {
-    userController.removeUsersSwipeList()
+    userController.removeUsersSwipeList();
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -41,14 +42,14 @@ const LoginScreen = () => {
           storage.set("email", email);
           storage.set("password", password);
           if (attempUserSwipeList == 0) {
-            setAttempUserSwipeList(attempUserSwipeList + 1)
+            setAttempUserSwipeList(attempUserSwipeList + 1);
             userController.getUsers().then(async () => {
               setLoadin(true);
               likesController.getLikesCurrentUser();
               matchController.getMatchesCurrentUser();
               navigation.navigate("LoadScreen");
               setTimeout(() => {
-                setLoadin(false)
+                setLoadin(false);
               }, 350);
             });
           }
@@ -57,16 +58,14 @@ const LoginScreen = () => {
       .catch(() => {
         setErrorLogIn(true);
         setLoadin(false);
+        setButtonLoginPressed(false)
       });
   };
 
   if (loadin) {
     return (
       <Layout>
-        <Image
-          className="h-72 w-72"
-          source={Logo}
-        />
+        <Image className="h-72 w-72" source={Logo} />
         <Text style={{ fontFamily: "Poppins_700Bold" }} className="text-3xl">
           Universitiers
         </Text>
@@ -124,19 +123,33 @@ const LoginScreen = () => {
           <></>
         )}
         <View className="absolute bottom-6 w-full items-center">
-          <TouchableOpacity
-            style={{
-              width: "90%",
-              height: 40,
-              backgroundColor: "white",
-            }}
-            className="items-center justify-center rounded-lg"
-            onPress={() => {
-              handleLogIn(email, password);
-            }}
-          >
-            <Text style={{ fontFamily: "Poppins_500Medium" }}>Login</Text>
-          </TouchableOpacity>
+          {buttonLoginPressed ? (
+            <View
+              style={{
+                width: "90%",
+                height: 40,
+                backgroundColor: "white",
+              }}
+              className="items-center opacity-40 justify-center rounded-lg"
+            >
+              <Text style={{ fontFamily: "Poppins_500Medium" }}>Login</Text>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={{
+                width: "90%",
+                height: 40,
+                backgroundColor: "white",
+              }}
+              className="items-center justify-center rounded-lg"
+              onPress={() => {
+                setButtonLoginPressed(true);
+                handleLogIn(email, password);
+              }}
+            >
+              <Text style={{ fontFamily: "Poppins_500Medium" }}>Login</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </KeyboardAvoidingView>
     </Layout>
