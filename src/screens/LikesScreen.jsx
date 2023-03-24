@@ -14,14 +14,7 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import Navigation from "../navigation/Navigation";
 import { useNavigation } from "@react-navigation/native";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
-import {
-  AppOpenAd,
-  InterstitialAd,
-  RewardedAd,
-  BannerAd,
-  TestIds,
-  BannerAdSize
-} from "react-native-google-mobile-ads";
+
 
 const LikesScreen = () => {
   const [likesWithoutCountMatches, setLikesWithoutCountMatches] = useState([]);
@@ -54,13 +47,6 @@ const LikesScreen = () => {
       >
         People who likes you!
       </Text>
-      <BannerAd
-        unitId={TestIds.BANNER}
-        size={BannerAdSize.FULL_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      />
 
       {viewProfileLike ? (
         <>
