@@ -1,13 +1,47 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import Layout from "../components/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { currentUser, User } from "../data/User";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import { PaymentIntent, useStripe } from "@stripe/stripe-react-native";
 
 const PaymentScreen = () => {
   const navigation = useNavigation();
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+
+  const onCheckout = async () => {
+    const response = await fetch("http://192.168.1.89:3000/intents", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    }).then((res) => res.json());
+
+    if (response.error) {
+      Alert.alert("Something went wrong");
+      return;
+    }
+
+    const initResponse = await initPaymentSheet({
+      merchantDisplayName: "universitiers",
+      paymentIntentClientSecret: response.paymentIntent,
+    
+    })
+
+    if (initResponse.error) {
+      Alert.alert("Something went wrong");
+      return;
+    }
+
+    const paymentResponse = await presentPaymentSheet()
+
+    if (paymentResponse.error) {
+      Alert.alert("Something went wrong");
+      return;
+    }
+  };
 
   return currentUser.id == "" ? (
     <LoadingScreen />
@@ -24,8 +58,7 @@ const PaymentScreen = () => {
       </Text>
       <View className="h-56"></View>
       <TouchableOpacity
-        onPress={() => {
-        }}
+        onPress={() => onCheckout()}
         style={{ backgroundColor: "#9FA0FF" }}
         className="bottom-5 absolute w-52 items-center justify-center h-14 rounded-2xl"
       >
