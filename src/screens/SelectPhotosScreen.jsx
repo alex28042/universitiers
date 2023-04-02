@@ -137,6 +137,7 @@ const SelectPhotosScreen = () => {
       </View>
       <View className="bottom-0 absolute w-full mb-4 items-center">
         <TouchableOpacity
+          disabled={loading}
           style={{
             width: "90%",
             height: 40,

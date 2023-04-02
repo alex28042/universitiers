@@ -15,7 +15,6 @@ import Navigation from "../navigation/Navigation";
 import { useNavigation } from "@react-navigation/native";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
-
 const LikesScreen = () => {
   const [likesWithoutCountMatches, setLikesWithoutCountMatches] = useState([]);
   const [viewProfileLike, setViewProfileLike] = useState(false);
@@ -47,56 +46,69 @@ const LikesScreen = () => {
       >
         People who likes you!
       </Text>
-
-      {viewProfileLike ? (
+      {currentUser.subscribed ? (
         <>
-          <TouchableOpacity
-            onPress={() => {
-              let random = randomIndexLike(0, likesWithoutCountMatches.length);
+          {" "}
+          {viewProfileLike ? (
+            <>
+              <TouchableOpacity
+                onPress={() => {
+                  let random = randomIndexLike(
+                    0,
+                    likesWithoutCountMatches.length
+                  );
 
-              if (
-                !indexUserLikeUsed.includes(random) &&
-                indexUserLikeUsed.length < 2
-              ) {
-                indexUserLikeUsed.push(random);
-                setIndexUserLike(random);
-              }
+                  if (
+                    !indexUserLikeUsed.includes(random) &&
+                    indexUserLikeUsed.length < 2
+                  ) {
+                    indexUserLikeUsed.push(random);
+                    setIndexUserLike(random);
+                  }
 
-              console.log(indexUserLike);
-            }}
-            style={{ backgroundColor: "#9FA0FF" }}
-            className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"
-          >
-            <Text style={{ fontFamily: "Poppins_700Bold" }}>
-              See who likes you
-            </Text>
-          </TouchableOpacity>
+                  console.log(indexUserLike);
+                }}
+                style={{ backgroundColor: "#9FA0FF" }}
+                className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"
+              >
+                <Text style={{ fontFamily: "Poppins_700Bold" }}>
+                  See who likes you
+                </Text>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <TouchableOpacity
+                onPress={() => {
+                  let random = randomIndexLike(
+                    0,
+                    likesWithoutCountMatches.length
+                  );
+                  console.log(random);
+                  setViewProfileLike(true);
+
+                  if (
+                    !indexUserLikeUsed.includes(random) &&
+                    indexUserLikeUsed.length < 2
+                  ) {
+                    indexUserLikeUsed.push(random);
+                    setIndexUserLike(random);
+                  }
+                }}
+                style={{ backgroundColor: "#9FA0FF" }}
+                className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"
+              >
+                <Text style={{ fontFamily: "Poppins_700Bold" }}>
+                  View a profile who likes you!
+                </Text>
+              </TouchableOpacity>
+            </>
+          )}
         </>
       ) : (
-        <>
-          <TouchableOpacity
-            onPress={() => {
-              let random = randomIndexLike(0, likesWithoutCountMatches.length);
-              console.log(random);
-              setViewProfileLike(true);
-
-              if (
-                !indexUserLikeUsed.includes(random) &&
-                indexUserLikeUsed.length < 2
-              ) {
-                indexUserLikeUsed.push(random);
-                setIndexUserLike(random);
-              }
-            }}
-            style={{ backgroundColor: "#9FA0FF" }}
-            className="mb-6 w-52 items-center justify-center h-14 rounded-2xl"
-          >
-            <Text style={{ fontFamily: "Poppins_700Bold" }}>
-              View a profile who likes you!
-            </Text>
-          </TouchableOpacity>
-        </>
+        <><Text style={{ fontFamily: "Poppins_500Medium" }} className="text-center mb-7">You cant see your likes you are not subscribed to universitiers</Text></>
       )}
+
       {likesWithoutCountMatches.length == 0 ? (
         <Text style={{ fontFamily: "Poppins_500Medium" }}>
           {"No likes :/ keep swiping"}

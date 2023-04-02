@@ -68,7 +68,7 @@ const CardProfile = ({ user }) => {
               marginRight: 20,
             }}
           >
-            {user.bio}
+            {user.bio.replace(/(?:\r?\n){2,}/g, '\n')}
           </Text>
         </View>
       </View>

@@ -136,6 +136,7 @@ const LoginScreen = () => {
             </View>
           ) : (
             <TouchableOpacity
+              disabled={buttonLoginPressed}
               style={{
                 width: "90%",
                 height: 40,
