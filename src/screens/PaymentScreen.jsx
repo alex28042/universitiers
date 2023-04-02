@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Alert } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -15,9 +15,9 @@ const PaymentScreen = () => {
 
   const addSubscription = async () => {
     db()
-      .doc(`Users/${currentUser.id}`)
+      .doc(`users/${currentUser.id}`)
       .update({
-        subscription: true,
+        subscribed: true,
       })
       .then(() => (currentUser.subscribed = true));
   };

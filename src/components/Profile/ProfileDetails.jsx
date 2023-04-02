@@ -16,10 +16,19 @@ const ProfileDetails = () => {
   return (
     <View className="w-full h-40 mb-5">
       <View className="flex flex-row ml-16">
-        <Image
-          source={{ uri: currentUser.photosURL[0] }}
-          className="h-24 w-24 rounded-full bg-white"
-        ></Image>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("PreviewProfileScreen", {
+              user: currentUser,
+            })
+          }
+        >
+          <Image
+            source={{ uri: currentUser.photosURL[0] }}
+            className="h-24 w-24 rounded-full bg-white"
+          />
+        </TouchableOpacity>
+
         <View className="flex flex-col">
           <Text className="ml-4 mt-2" style={{ fontFamily: "Poppins_700Bold" }}>
             {currentUser.name}
