@@ -2,15 +2,12 @@ import {
   View,
   Text,
   Image,
-  TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import { TailwindProvider } from "tailwindcss-react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { db } from "../../firebase-config";
-import { url } from "../data/User";
 
 const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
   const navigation = useNavigation();
@@ -28,7 +25,7 @@ const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
         <View className="flex flex-row h-full w-full">
           <View className="w-full top-1 items-center z-40 absolute">
             <View className="flex flex-row">
-              {user.photosURL.map((e, i) => (
+              {user?.photosURL?.map((e, i) => (
                 <View
                   key={i}
                   style={{
@@ -59,12 +56,12 @@ const SwipeUserCard = ({ id, name, age, uni, bio, user }) => {
         </View>
         <Image
           className="w-full absolute h-full -z-50 rounded-lg"
-          source={{ uri: user.photosURL[photoUrlIndex] }}
+          source={{ uri: user?.photosURL?.[photoUrlIndex] }}
         ></Image>
         <View className="bottom-0 absolute self-start w-full justify-between flex flex-row">
           <View className="flex flex-col ml-8 ">
             <Text style={{ fontFamily: "Poppins_700Bold" }}>
-              {name},{getAge(new Date(age[2], age[1], age[0]))}
+              {name},{getAge(new Date(age?.[2], age?.[1], age?.[0]))}
             </Text>
             <Text
               style={{

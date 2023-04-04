@@ -33,11 +33,6 @@ const SwipeScreen = () => {
   const [loaded, setLoaded] = useState(false);
   const [countOfLikes, setCountOfLikes] = useState(0);
 
-  if (usersSwipeList != oldUsersSwipeList) {
-    let newUsers = [...usersSwipeList];
-    setOldUsersSwipeList(newUsers);
-  }
-
   useLayoutEffect(() => {
     const permissionsFunc = async () => {
       if (!currentUser.notificationsPermissions) {
@@ -65,7 +60,15 @@ const SwipeScreen = () => {
     };
 
     permissionsFunc();
+
   }, []);
+
+  /*useEffect(() => {
+    let newUsers = [...usersSwipeList];
+    setOldUsersSwipeList(newUsers);
+  }, [currentUser, usersSwipeList]);
+*/
+console.log(currentUser.id);
 
   return currentUser.id == "" ? (
     <LoadingScreen />
@@ -91,7 +94,7 @@ const SwipeScreen = () => {
           </View>
         ) : (
           <>
-            <Swiper
+           <Swiper
               ref={swipeRef}
               stackSize={5}
               cardIndex={0}
@@ -190,6 +193,7 @@ const SwipeScreen = () => {
                 )
               }
             />
+    
           </>
         )}
       </View>

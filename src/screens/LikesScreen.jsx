@@ -48,7 +48,6 @@ const LikesScreen = () => {
       </Text>
       {currentUser.subscribed ? (
         <>
-          {" "}
           {viewProfileLike ? (
             <>
               <TouchableOpacity
@@ -106,7 +105,7 @@ const LikesScreen = () => {
           )}
         </>
       ) : (
-        <><Text style={{ fontFamily: "Poppins_500Medium" }} className="text-center mb-7">You cant see your likes you are not subscribed to universitiers</Text></>
+        <Text style={{ fontFamily: "Poppins_500Medium" }} className="text-center mb-7">You cant see your likes you are not subscribed to universitiers</Text>
       )}
 
       {likesWithoutCountMatches.length == 0 ? (

@@ -247,7 +247,7 @@ const ProfileAboutYou = () => {
           Change Bio
         </Text>
         <Text style={{ fontFamily: "Poppins_500Medium" }}>
-          {(bio.length == 0 ? currentUser.bio.length : bio.length) + "/" + 80}
+          {(bio.length == 0 ? currentUser.bio.replace(/(?:\r?\n){2,}/g, '\n').length : bio.replace(/(?:\r?\n){2,}/g, '\n').length) + "/" + 80}
         </Text>
         <TextInput
           onChangeText={(text) => setBio(text)}
@@ -259,21 +259,21 @@ const ProfileAboutYou = () => {
           className="w-3/4 h-24 rounded-2xl px-2 py-1 mt-10"
           placeholder="Bio"
           multiline
-          defaultValue={currentUser.bio}
+          defaultValue={currentUser.bio.replace(/(?:\r?\n){2,}/g, '\n')}
         />
         <TouchableOpacity
           onPress={() => {
             if (
-              bio != "" && bio.length == 0
-                ? currentUser.bio.length < 80
-                : bio.length < 80
+              bio != "" && bio.replace(/(?:\r?\n){2,}/g, '\n').length == 0
+                ? currentUser.bio.replace(/(?:\r?\n){2,}/g, '\n').length < 80
+                : bio.replace(/(?:\r?\n){2,}/g, '\n').length < 80
             ) {
               db()
                 .doc("users/" + currentUser.id)
                 .update({
-                  bio: bio,
+                  bio: bio.replace(/(?:\r?\n){2,}/g, '\n'),
                 })
-                .then(() => (currentUser.bio = bio));
+                .then(() => (currentUser.bio = bio.replace(/(?:\r?\n){2,}/g, '\n')));
             }
             setBioVisible(false);
           }}

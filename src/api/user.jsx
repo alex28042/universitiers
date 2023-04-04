@@ -9,7 +9,6 @@ export class UserController {
   async createUser(user) {
     storage.set("email", currentUser.email);
     storage.set("password", currentUser.password);
-    console.log(user.photosURL);
     await db()
       .collection("users/")
       .add({
@@ -94,7 +93,7 @@ export class UserController {
           if (
             d.id != currentUser.id &&
             data.gender == currentUser.genderSearch &&
-            !usersSwipeList.includes(data)
+            !usersSwipeList.includes(data) 
           )
             usersSwipeList.push({ id: d.id, ...data });
         })
